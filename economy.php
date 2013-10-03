@@ -55,33 +55,15 @@ include '.include/recent_articles.php';
 	      <section>
 		<h2 class="major"><span>Recent Posts</span></h2>
 		<ul class="style2">
-		  <li>
-		    <article class="is-post-summary">
-		      <h3><a href="#">Where are the graphics?</a></h3>
-		      <ul class="meta">
-			<li class="timestamp">6 hours ago</li>
-			<li class="comments"><a href="#">34</a></li>
-		      </ul>
-		    </article>
-		  </li>
-		  <li>
-		    <article class="is-post-summary">
-		      <h3><a href="#">What achievements are there</a></h3>
-		      <ul class="meta">
-			<li class="timestamp">9 hours ago</li>
-			<li class="comments"><a href="#">27</a></li>
-		      </ul>
-		    </article>
-		  </li>
-		  <li>
-		    <article class="is-post-summary">
-		      <h3><a href="#">Can I play w/a controller</a></h3>
-		      <ul class="meta">
-			<li class="timestamp">Yesterday</li>
-			<li class="comments"><a href="#">184</a></li>
-		      </ul>
-		    </article>
-		  </li>
+  <?php
+  for ($i = 0; $i < count($recent_article_ids); $i++)
+    {
+      $foo_article_id = $recent_article_ids[$i];
+      $foo_article_title = $recent_article_titles[$i];
+      $foo_article_age = $recent_article_ages[$i];
+      include '.include/sidebar_post.php';
+    }
+  ?>
 		</ul>
 		<a href="#" class="button button-alt">Browse Archives</a>
 	      </section>

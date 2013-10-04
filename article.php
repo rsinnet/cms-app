@@ -105,7 +105,7 @@
 		  $foo_article_subtitle = $article_subtitle;
 		  $foo_article_age = $article_age;
 		  include '.include/article_header.php';
-		  echo file_get_contents($article_blog_file);
+		  include $article_blog_file;
 		?>
 	      </article>
 	      <!-- /Content -->

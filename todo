@@ -12,7 +12,7 @@ authors:
   - primary_email
   - primary_website
 
-contact_id_link_table:
+contact_id_graph:
   - id
   - author_id
   _ contact_id
@@ -28,10 +28,16 @@ articles:
   - date
   - file
 
-articles_authors_link_table:
+articles_authors_graph:
   - id
   - articles_id
   - authors_id
+
+
+CREATE DATABASE rsinnet_iamphilosopher;
+CREATE USER 'rsinnet_webuser'@'localhost' IDENTIFIED BY 'Z?Z07uwL#(4g';
+GRANT SELECT ON rsinnet_iamphilosopher.* TO 'rsinnet_webuser'@'localhost';
+FLUSH PRIVILEGES;
 
 
 USE rsinnet_iamphilosopher;
@@ -72,12 +78,46 @@ CREATE TABLE IF NOT EXISTS topics (
        id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
        name VARCHAR(255) NOT NULL);
 
-CREATE TABLE IF NOT EXISTS articles_topics_link_table (
+CREATE TABLE IF NOT EXISTS articles_topics_graph (
        id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
        article_id INTEGER NOT NULL,
        topic_id INTEGER NOT NULL,
        FOREIGN KEY (article_id) REFERENCES articles(id),
        FOREIGN KEY (topic_id) REFERENCES topics(id));
+
+CREATE TABLE IF NOT EXISTS resource_types (
+       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       type VARCHAR(255) NOT NULL);
+
+INSERT INTO resource_types (type) VALUES ("Web"), ("E-mail"), ("Address"), ("iap-article"), ("Article"), ("Proceedings"), ("Attribution"), ("Title");
+
+CREATE TABLE IF NOT EXISTS resources (
+       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       resource_type_id INTEGER NOT NULL,
+       rkey VARCHAR(2000),
+       rvalue VARCHAR(2000),
+       FOREIGN KEY (resource_type_id) REFERENCES resource_types(id)
+);
+      
+INSERT INTO resources (resource_type_id, rvalue) VALUES
+       ((SELECT id from resource_types WHERE type="attribution"),       
+       "By CASASCIUS (CASASCIUS) [<a href='http://creativecommons.org/licenses/by/3.0'>CC-BY-3.0</a>], via <a href='http://commons.wikimedia.org'>Wikimedia Commons</a>")
+
+CREATE TABLE IF NOT EXISTS resources_graph (
+       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       resource1_id INTEGER NOT NULL,
+       resource2_id INTEGER NOT NULL,
+       FOREIGN KEY (resource1_id) REFERENCES resources(id),
+       FOREIGN KEY (resource2_id) REFERENCES resources(id)
+);
+
+CREATE TABLE IF NOT EXISTS articles_resources_graph (
+       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       article_id INTEGER NOT NULL,
+       resource_id INTEGER NOT NULL,
+       FOREIGN KEY (article_id) REFERENCES articles(id),
+       FOREIGN KEY (resource_id) REFERENCES resources(id));
+
 
 INSERT INTO topics (name) VALUES ('Politics');
 INSERT INTO topics (name) VALUES ('Economy');
@@ -87,11 +127,18 @@ INSERT INTO topics (name) VALUES ('Science');
 
 INSERT INTO authors (name, email) VALUES ('Ryan W. Sinnet', 'ryan@iamphilosopher.com');
 
-INSERT INTO articles (title, subtitle, date, topic_id) VALUES ('The Syria Situation', 'Suspicions and Allegations', NOW(), (SELECT id FROM topics WHERE name = 'Philosophy'));
+INSERT INTO articles (title, subtitle, date, topic_id) VALUES ('The Syria Situation', 'Suspicions and Allegations', NOW(), (SELECT id FROM topics WHERE name = 'Politics'));
 INSERT INTO articles (title, subtitle, date, topic_id) VALUES ('Rights vs. Priviliges', 'A Reasoned Explanation', NOW(), (SELECT id FROM topics WHERE name = 'Law'));
 INSERT INTO articles (title, subtitle, date, topic_id) VALUES ('The Case for Bitcoin', 'A Cryptocurrency Revolution', NOW(), (SELECT id FROM topics WHERE name = 'Economy'));
 
+INSERT INTO resources (resource_type_id) VALUES ((SELECT id FROM resource_types WHERE type="Image"))
+INSERT INTO resources (resource_type_id) VALUES ((SELECT id FROM resource_types WHERE type="Article"))
 
-CREATE USER 'rsinnet_webuser'@'localhost' IDENTIFIED BY 'Z?Z07uwL#(4g';
-GRANT SELECT ON rsinnet_iamphilosopher.* TO 'rsinnet_webuser'@'localhost';
-FLUSH PRIVILEGES;
+
+INSERT INTO resources (resource_type_id) VALUES
+       ((SELECT id from resource_types WHERE type="Image"))
+
+INSERT INTO resources (resource_type_id, rkey, rvalue)
+
+INSERT INTO resources_graph (resource1_id, resource2_id) VALUES
+       ((SELECT id from 

@@ -8,14 +8,21 @@
 	  if ($blogXmlChildren[$i]->getName() == "p")
 	    break;
 	return "<section>".xmlToHtml5($blogXmlChildren[$i]->asXML())."</section>";
-     }
-
-
+      }
+      
+      
       function xmlToHtml5($xmlAsString)
       {
-	$string = preg_replace("/^<\?xml.*\?>\s*/i", "", $xmlAsString);
+	$string = preg_replace("/^<\?xml.*\(\?\)>\s*/i", "", $xmlAsString);
 	return $string;
       }
+      
+      function addFullImage($id)
+      {
+	$foo_image_id = $id;
+	include '.include/image_full.php';
+      }
     }
+
 $__INCLUDE_UTILITIES_PHP = 1;
 ?>

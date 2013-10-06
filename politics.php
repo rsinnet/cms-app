@@ -55,15 +55,15 @@ include '.include/recent_articles.php';
 	      <section>
 		<h2 class="major"><span>Recent Posts</span></h2>
 		<ul class="style2">
-  <?php
-  for ($i = 0; $i < count($recent_article_ids); $i++)
-    {
-      $foo_article_id = $recent_article_ids[$i];
-      $foo_article_title = $recent_article_titles[$i];
-      $foo_article_age = $recent_article_ages[$i];
-      include '.include/sidebar_post.php';
-    }
-  ?>
+		  <?php
+  		    for ($i = 0; $i < count($recent_article_ids); $i++)
+		      {
+			$foo_article_id = $recent_article_ids[$i];
+			$foo_article_title = $recent_article_titles[$i];
+			$foo_article_age = $recent_article_ages[$i];
+			include '.include/sidebar_post.php';
+		      }
+		  ?>
 		</ul>
 		<a href="#" class="button button-alt">Browse Archives</a>
 	      </section>
@@ -103,18 +103,17 @@ include '.include/recent_articles.php';
 	      
 	      <!-- Content -->
 	      <?php
-		 for ($i = 0; $i < count($recent_article_ids); $i++)
-				   {
-				   $foo_article_id = $recent_article_ids[$i];
-				   $foo_article_title = $recent_article_titles[$i];
-				   $foo_article_subtitle = $recent_article_subtitles[$i];
-				   $foo_article_age = $recent_article_ages[$i];
-				   $foo_article_blog_file = '.articles/'.$recent_article_ids[$i].'_blog.html';
-				   include('.include/article_brief.php');
-				   }
-				   ?>
+  		for ($i = 0; $i < count($recent_article_ids); $i++)
+		  {
+		    $foo_article_id = $recent_article_ids[$i];
+		    $foo_article_title = $recent_article_titles[$i];
+		    $foo_article_subtitle = $recent_article_subtitles[$i];
+		    $foo_article_age = $recent_article_ages[$i];
+		    $foo_article_blog_file = '.articles/'.$recent_article_ids[$i].'_blog.php';
+		    include('.include/article_brief.php');
+		  }
+	      ?>
 		 <!-- /Content -->
-		 
 	    </div>
 	  </div>
 	</div>

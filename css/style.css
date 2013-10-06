@@ -126,6 +126,24 @@ article:last-child
     border-radius: 8px;
 }
 
+.image-attribution
+{
+    display: inline-block;
+    top: -1em;
+    border-radius: 8px;
+    background: #e3daa8;
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    /* Styles */
+    .image-attribution
+    {
+	font-size: 2em;
+    }
+}
+
 .image img
 {
     display: block;

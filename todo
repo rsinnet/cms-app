@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS resource_types (
        id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
        type VARCHAR(255) NOT NULL);
 
-INSERT INTO resource_types (type) VALUES ("Web"), ("E-mail"), ("Address"), ("iap-article"), ("Article"), ("Proceedings"), ("Attribution"), ("Title");
+INSERT INTO resource_types (type) VALUES ("Web"), ("E-mail"), ("Address"),  ("iap-article"), ("Article"), ("Proceedings"), ("Attribution"), ("Title"), ("Image");
 
 CREATE TABLE IF NOT EXISTS resources (
        id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -100,8 +100,19 @@ CREATE TABLE IF NOT EXISTS resources (
 );
       
 INSERT INTO resources (resource_type_id, rvalue) VALUES
-       ((SELECT id from resource_types WHERE type="attribution"),       
+       ((SELECT id FROM resource_types WHERE type="attribution"),
        "By CASASCIUS (CASASCIUS) [<a href='http://creativecommons.org/licenses/by/3.0'>CC-BY-3.0</a>], via <a href='http://commons.wikimedia.org'>Wikimedia Commons</a>")
+INSERT INTO resources (resource_type_id, rvalue) VALUES
+       ((SELECT id FROM resource_types WHERE type="attribution"),
+       'By Bernard Gagnon (Own work) [<a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> or <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA-3.0-2.5-2.0-1.0</a>], <a href="http://commons.wikimedia.org/wiki/File%3AAl-Hamidiyah_Souq_02.jpg">via  Wikimedia Commons</a>');
+INSERT INTO resources (resource_type_id) VALUES ((SELECT rt.id FROM resource_types AS rt where rt.type='Image'));
+INSERT INTO resources (resource_type_id) VALUES ((SELECT rt.id FROM resource_types AS rt where rt.type='iap-article'));
+
+INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (5, 3);
+INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (6, 4);
+
+INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (3, 1);
+INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (4, 2);
 
 CREATE TABLE IF NOT EXISTS resources_graph (
        id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -118,6 +129,8 @@ CREATE TABLE IF NOT EXISTS articles_resources_graph (
        FOREIGN KEY (article_id) REFERENCES articles(id),
        FOREIGN KEY (resource_id) REFERENCES resources(id));
 
+INSERT INTO articles_resources_graph (article_id, resource_id) VALUES (1, 5);
+INSERT INTO articles_resources_graph (article_id, resource_id) VALUES (3, 6);
 
 INSERT INTO topics (name) VALUES ('Politics');
 INSERT INTO topics (name) VALUES ('Economy');

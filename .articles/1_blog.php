@@ -1,5 +1,9 @@
 <section>
-  <?php echo addFullImage(1); ?>
+  <?php
+  $foo_article_id = $article_id;
+  $foo_image_id = 1;
+  include '.include/image_full.php';
+  ?>
   <p>This is my understanding of the situation in Syria after scavenging the news: There was an alleged chemical weapons attack on Wednesday in which death toll reports vary from one hundred to over a thousand dead. This attack, if it be true, is the worst in over a quarter century, and comes only a few days after UN chemical weapons inspectors arrived in Syria. Washington and NATO allies are attributing this attack to the Assad Regime, a claim which the regime vehemently denies. And there has been no independent verification, mind you, and likely never will be. Most likely because it did not happen at all the way the media are reporting. Why on earth would Assad wait until investigators arrive to launch such an attack? Why launch an attack at all? Reports indicate that he is steadily winning so why risk provoking an international response for no reason? </p>
   <p>The US media are claiming that Assad is preventing inspections yet even today the Jerusalem Post is saying Assad has agreed to cooperate so what gives? Assad claims the rebels are responsible for the attack. Given that Washington has been smuggling weapons illegally into Syria for at least two years (which, in fact, precipitated the Benghazi crisis), it would be no departure from the Obama Administration's modus operandi to stage or encourage such a false flag attack. And this is essentially what Russia is alleging. And we have psychopaths like David Cameron and William Hague demanding international response and accusing America of being passive. As if... America is involved in how many illegal wars? Oh you didn't know about that? It's an open secret that America is illegally bombing Yemen, Pakistan, Somalia&#0151;the list goes on. We seriously need to reconsider our foreign policy&#0151;</p>
 </section>

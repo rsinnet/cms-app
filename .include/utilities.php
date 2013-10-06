@@ -16,12 +16,6 @@
 	$string = preg_replace("/^<\?xml.*\(\?\)>\s*/i", "", $xmlAsString);
 	return $string;
       }
-      
-      function addFullImage($id)
-      {
-	$foo_image_id = $id;
-	include '.include/image_full.php';
-      }
     }
 
 $__INCLUDE_UTILITIES_PHP = 1;

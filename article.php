@@ -1,4 +1,6 @@
 <?php
+  // Enable debug mode by setting IAP_DEBUG, could be false even.
+  // $IAP_DEBUG_ = true;
   // Include useful scripts.
   include '.include/article_age.php';
   include '.include/utilities.php';
@@ -24,7 +26,7 @@
   $result->close();
   
   $article_id = $_GET['id'];
-  $article_blog_file = ".articles/" . $article_id . "_blog.html";
+  $article_blog_file = ".articles/" . $article_id . "_blog.php";
 
   $result = $con->query("
   SELECT title, subtitle, date, topic_id,

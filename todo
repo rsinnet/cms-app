@@ -155,3 +155,13 @@ INSERT INTO resources (resource_type_id, rkey, rvalue)
 
 INSERT INTO resources_graph (resource1_id, resource2_id) VALUES
        ((SELECT id from 
+
+
+# Adding new images to the resources table
+INSERT INTO resources (resource_type_id, rvalue) VALUES ((SELECT rt.id FROM resource_types AS rt WHERE rt.type="Image"), sha2(rand(), 256))
+
+SELECT id FROM resources ORDER BY DESC;
+
+INSERT INTO resources (resource_type_id, rkey, rvalue) VALUES ((SELECT rt.id FROM resource_types AS rt WHERE rt.type="String"), "extension", "jpg")
+
+INSERT INTO resources_graph(resource1_id, resource2_id) VALUES (id1, id2);

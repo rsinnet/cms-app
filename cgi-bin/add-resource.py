@@ -122,10 +122,46 @@ WHERE r1.id=""" + str(id);
         # ^<\?xml.*\(\?\)>\s*
         return xml_to_html(self.get_xml_dom().toprettyxml())
 
-print iapArticle(db, 3);
+print "Content-type: text/html\n\n";
+cursor = db.cursor();
+
+sql_query = """\
+INSERT INTO resources (resource_type_id, rvalue)
+VALUES (
+(SELECT rt.id FROM resource_types AS rt WHERE rt.type='Image'),
+sha2(rand(), 256)
+)
+""";
+print sql_query + "<br/>"
+
+sql_query = "SELECT id FROM resources ORDER BY id DESC LIMIT 1";
+print sql_query + "<br/>"
+cursor.execute(sql_query)
+resource_image_id = cursor.fetchone()[0]
+
+
+sql_query = """\
+INSERT INTO resources (resource_type_id, rkey, rvalue)
+VALUES (
+(SELECT rt.id FROM resource_types AS rt WHERE rt.type="String"),
+"extension",
+"jpg"
+)
+""";
+print sql_query + "<br/>"
+
+sql_query = "SELECT id FROM resources ORDER BY id DESC LIMIT 1";
+print sql_query + "<br/>"
+cursor.execute(sql_query)
+resource_extension_id = cursor.fetchone()[0]
+
+sql_query = "INSERT INTO resources_graph (resource1_id, resource2_id) " + \
+    "VALUES (" + str(resource_image_id) + ", " + \
+    str(resource_extension_id) + ")"
+print sql_query + "<br/>"
 
 # Get all resources related to this article
-#sql_quer = """\
+#sql_query = """\
 #SELECT r3.id, a1.title, rt2.type, r3.rkey, r3.rvalue
 #FROM resources AS r1
 #INNER JOIN resources_graph AS rg1 on r1.id=rg1.resource2_id

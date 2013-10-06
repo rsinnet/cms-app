@@ -39,7 +39,8 @@ INNER JOIN resources AS r2 ON r2.id=rg1.resource1_id
 INNER JOIN articles_resources_graph AS arg1 ON r2.id=arg1.resource_id
 INNER JOIN articles AS a1 ON a1.id=arg1.article_id
 INNER JOIN resource_types AS rt1 ON rt1.id=r1.resource_type_id
-WHERE rt1.type='Image' AND a1.id=""" + str(id);
+WHERE rt1.type='Image' AND a1.id='""" + str(id) + "'";
+
         cursor = db.cursor();
         cursor.execute(sql_query)
         rows = cursor.fetchall()
@@ -63,23 +64,26 @@ class iapImage:
     def __init__(self, db, id):
         self.id = id;           # resource id
         sql_query = """\
-SELECT r1.rvalue AS hash, rt1.type,
+SELECT r1.id AS hash, rt1.type,
        rt2.type AS key_type, r2.rkey, r2.rvalue
 FROM resources AS r1
 INNER JOIN resources_graph AS rg1 ON rg1.resource1_id=r1.id
 INNER JOIN resources AS r2 ON rg1.resource2_id=r2.id
 INNER JOIN resource_types AS rt1 ON r1.resource_type_id=rt1.id
 INNER JOIN resource_types AS rt2 ON r2.resource_type_id=rt2.id
-WHERE r1.id=""" + str(id);
+WHERE r1.id='""" + str(id) + "'";
         cursor = db.cursor()
         cursor.execute(sql_query)
         rows = cursor.fetchall()
-
         self.keys = [];
         self.values = [];
         for row in rows:
             self.keys.append(row[2])
             self.values.append(row[4])
+            if (self.keys.append(row[3]) == "Extension"):
+                self.extension = row[3];
+            else:
+                self.extension = "jpg";
         self.hash = row[0]
 
     def get_xml_dom(self):
@@ -96,7 +100,8 @@ WHERE r1.id=""" + str(id);
             "max-width: 200px;" + \
             "max-height: 100px;" + \
             "border-radius: 8px;"
-        resource_img.attributes["src"] = "../resources/" + self.hash + ".jpg"
+        resource_img.attributes["src"] = "../resources/" + \
+            self.hash + "." + self.extension
         root.appendChild(resource_img)
 
         resource_div = dom.createElement("div");
@@ -122,7 +127,7 @@ WHERE r1.id=""" + str(id);
         # ^<\?xml.*\(\?\)>\s*
         return xml_to_html(self.get_xml_dom().toprettyxml())
 
-print iapArticle(db, 3);
+print iapArticle(db, '3dd19be22ffffb3f616e777d4ff017f62c37097e');
 
 # Get all resources related to this article
 #sql_quer = """\

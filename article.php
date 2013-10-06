@@ -26,13 +26,13 @@
   $result->close();
   
   $article_id = $_GET['id'];
-  $article_blog_file = ".articles/" . $article_id . "_blog.php";
+  $article_blog_file = ".articles/" . $article_id . ".php";
 
-  $result = $con->query("
-  SELECT title, subtitle, date, topic_id,
-  (SELECT name FROM topics WHERE id=topic_id) AS topic,
+  $sql_query = "SELECT title, subtitle, date, topic_id,
+  (SELECT name FROM topics WHERE id='topic_id') AS topic,
   TO_DAYS(NOW()) - TO_DAYS(date) AS age
-  FROM articles WHERE id = " . $article_id);
+  FROM articles WHERE id='" . $article_id . "'";
+  $result = $con->query($sql_query);
   $row = $result->fetch_array();
   $article_title = $row['title'];
   $article_subtitle = $row['subtitle'];

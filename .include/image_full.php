@@ -4,7 +4,7 @@
   // part of the file name.
   // The second is resource the attribution HTML for the image.
   $sql_query = "
-  SELECT r.rvalue AS hash, r2.rvalue AS attribution
+  SELECT r.id AS hash, r2.rvalue AS attribution
   FROM resources_graph AS rg
   INNER JOIN resources AS r ON rg.resource2_id=r.id
   INNER JOIN resource_types AS rt ON r.resource_type_id=rt.id
@@ -12,10 +12,11 @@
   INNER JOIN resources r2 ON r2.id=rg2.resource2_id
   WHERE rg.resource1_id=(
   SELECT arg.resource_id FROM articles_resources_graph AS arg
-  WHERE arg.article_id=".$foo_article_id.")
+  WHERE arg.article_id='".$foo_article_id."')
   AND r2.resource_type_id=(SELECT rt2.id FROM resource_types AS rt2 WHERE type='Attribution')
   AND rt.type='Image'
   ORDER BY r.id ASC";
+
   $result = $con->query($sql_query);
   $resource_ids = array();
   $attributions = array();

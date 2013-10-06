@@ -1,4 +1,4 @@
-71. Setup MySQL databases for storing article metadata.
+1. Setup MySQL databases for storing article metadata.
 2. Query database with create content, either using AJEX and jQuery or possibly Perl or PHP. Do I have Tomcat for even more ineractivity and control? But Java is dead...
 3. Link in with facebook API. Perhaps PHP would be a good choice.
 4. Maybe a storage and retreival system for html? store each part of the page?
@@ -12,26 +12,21 @@ authors:
   - primary_email
   - primary_website
 
-contact_id_graph:
-  - id
-  - author_id
-  _ contact_id
-
-contact_table:
-  - id
-  - type
-  - value
-
 articles:
   - id
   - title
   - date
   - file
 
-articles_authors_graph:
+authors_resources_graph:
   - id
-  - articles_id
-  - authors_id
+  - author_id
+  - resource_id
+
+articles_resources_graph:
+  - id
+  - article_id
+  - author_id
 
 
 CREATE DATABASE rsinnet_iamphilosopher;
@@ -43,70 +38,59 @@ FLUSH PRIVILEGES;
 USE rsinnet_iamphilosopher;
 
 CREATE TABLE IF NOT EXISTS authors (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       id CHAR(40) NOT NULL PRIMARY KEY,
        name VARCHAR(255) NOT NULL,
        email VARCHAR(255) NOT NULL);
 
-CREATE TABLE IF NOT EXISTS contactinfo (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,       
-       contact_type VARCHAR(255) NOT NULL,
-       value VARCHAR(2000) NOT NULL);
-
-CREATE TABLE IF NOT EXISTS authors_contactinfo_graph (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-       author_id INTEGER NOT NULL,
-       contactinfo_id INTEGER NOT NULL,
-       FOREIGN KEY (author_id) REFERENCES authors(id),
-       FOREIGN KEY (contactinfo_id) REFERENCES contactinfo(id));
+CREATE TABLE IF NOT EXISTS topics (
+       id CHAR(40) NOT NULL PRIMARY KEY,
+       name VARCHAR(255) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS articles (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+       id CHAR(40) NOT NULL PRIMARY KEY,
        title VARCHAR(2000) NOT NULL,
        subtitle VARCHAR(2000),
        date DATETIME NOT NULL,
-       topic_id INTEGER NOT NULL,
+       topic_id CHAR(40) NOT NULL,
        FOREIGN KEY (topic_id) REFERENCES topics(id));
 
 CREATE TABLE IF NOT EXISTS articles_authors_graph (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-       article_id INTEGER NOT NULL,
-       author_id INTEGER NOT NULL,
+       id CHAR(40) NOT NULL PRIMARY KEY,
+       article_id CHAR(40) NOT NULL,
+       author_id CHAR(40) NOT NULL,
        FOREIGN KEY (article_id) REFERENCES articles(id),
        FOREIGN KEY (author_id) REFERENCES authors(id));
-       
-CREATE TABLE IF NOT EXISTS topics (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-       name VARCHAR(255) NOT NULL);
 
 CREATE TABLE IF NOT EXISTS articles_topics_graph (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-       article_id INTEGER NOT NULL,
-       topic_id INTEGER NOT NULL,
+       id CHAR(40) NOT NULL PRIMARY KEY,
+       article_id CHAR(40) NOT NULL,
+       topic_id CHAR(40) NOT NULL,
        FOREIGN KEY (article_id) REFERENCES articles(id),
        FOREIGN KEY (topic_id) REFERENCES topics(id));
 
 CREATE TABLE IF NOT EXISTS resource_types (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-       type VARCHAR(255) NOT NULL);
+       id CHAR(40) NOT NULL PRIMARY KEY,
+       type VARCHAR(2000) NOT NULL);
 
-INSERT INTO resource_types (type) VALUES ("Web"), ("E-mail"), ("Address"),  ("iap-article"), ("Article"), ("Proceedings"), ("Attribution"), ("Title"), ("Image");
+INSERT INTO resource_types (id, type) VALUES (SHA1(RAND()), "Article"), (SHA1(RAND()), "Image"), (SHA1(RAND()), "String");
 
 CREATE TABLE IF NOT EXISTS resources (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-       resource_type_id INTEGER NOT NULL,
+       id CHAR(40) NOT NULL PRIMARY KEY,
+       resource_type_id CHAR(40) NOT NULL,
        rkey VARCHAR(2000),
        rvalue VARCHAR(2000),
        FOREIGN KEY (resource_type_id) REFERENCES resource_types(id)
 );
       
-INSERT INTO resources (resource_type_id, rvalue) VALUES
-       ((SELECT id FROM resource_types WHERE type="attribution"),
-       "By CASASCIUS (CASASCIUS) [<a href='http://creativecommons.org/licenses/by/3.0'>CC-BY-3.0</a>], via <a href='http://commons.wikimedia.org'>Wikimedia Commons</a>")
-INSERT INTO resources (resource_type_id, rvalue) VALUES
-       ((SELECT id FROM resource_types WHERE type="attribution"),
+INSERT INTO resources (id, resource_type_id, rvalue) VALUES
+       (SHA1(RAND()), (SELECT id FROM resource_types WHERE type="Attribution"),
+       "By CASASCIUS (CASASCIUS) [<a href='http://creativecommons.org/licenses/by/3.0'>CC-BY-3.0</a>], via <a href='http://commons.wikimedia.org'>Wikimedia Commons</a>");
+INSERT INTO resources (id, resource_type_id, rvalue) VALUES
+       (SHA1(RAND()), (SELECT id FROM resource_types WHERE type="Attribution"),
        'By Bernard Gagnon (Own work) [<a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> or <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA-3.0-2.5-2.0-1.0</a>], <a href="http://commons.wikimedia.org/wiki/File%3AAl-Hamidiyah_Souq_02.jpg">via  Wikimedia Commons</a>');
-INSERT INTO resources (resource_type_id) VALUES ((SELECT rt.id FROM resource_types AS rt where rt.type='Image'));
-INSERT INTO resources (resource_type_id) VALUES ((SELECT rt.id FROM resource_types AS rt where rt.type='iap-article'));
+
+INSERT INTO resources (id, resource_type_id) VALUES (SHA1(RAND()), (SELECT rt.id FROM resource_types AS rt where rt.type='Image'));
+INSERT INTO resources (id, resource_type_id) VALUES (SHA1(RAND()), (SELECT rt.id FROM resource_types AS rt where rt.type='Article'));
 
 INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (5, 3);
 INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (6, 4);
@@ -115,34 +99,37 @@ INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (3, 1);
 INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (4, 2);
 
 CREATE TABLE IF NOT EXISTS resources_graph (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-       resource1_id INTEGER NOT NULL,
-       resource2_id INTEGER NOT NULL,
+       id CHAR(40) NOT NULL PRIMARY KEY,
+       resource1_id CHAR(40) NOT NULL,
+       resource2_id CHAR(40) NOT NULL,
        FOREIGN KEY (resource1_id) REFERENCES resources(id),
        FOREIGN KEY (resource2_id) REFERENCES resources(id)
 );
 
 CREATE TABLE IF NOT EXISTS articles_resources_graph (
-       id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-       article_id INTEGER NOT NULL,
-       resource_id INTEGER NOT NULL,
+       id CHAR(40) NOT NULL PRIMARY KEY,
+       article_id CHAR(40) NOT NULL,
+       resource_id CHAR(40) NOT NULL,
        FOREIGN KEY (article_id) REFERENCES articles(id),
        FOREIGN KEY (resource_id) REFERENCES resources(id));
 
 INSERT INTO articles_resources_graph (article_id, resource_id) VALUES (1, 5);
 INSERT INTO articles_resources_graph (article_id, resource_id) VALUES (3, 6);
 
-INSERT INTO topics (name) VALUES ('Politics');
-INSERT INTO topics (name) VALUES ('Economy');
-INSERT INTO topics (name) VALUES ('Law');
-INSERT INTO topics (name) VALUES ('Philosophy');
-INSERT INTO topics (name) VALUES ('Science');
+INSERT INTO topics (id, name) VALUES
+        (SHA1(RAND()), 'Politics'),
+        (SHA1(RAND()), 'Economy'),
+	(SHA1(RAND()), 'Law'),
+	(SHA1(RAND()), 'Philosophy'),
+	(SHA1(RAND()), 'Science');
 
-INSERT INTO authors (name, email) VALUES ('Ryan W. Sinnet', 'ryan@iamphilosopher.com');
+INSERT INTO authors (id, name, email) VALUES (SHA1(RAND()), 'Ryan W. Sinnet', 'ryan@iamphilosopher.com');
 
-INSERT INTO articles (title, subtitle, date, topic_id) VALUES ('The Syria Situation', 'Suspicions and Allegations', NOW(), (SELECT id FROM topics WHERE name = 'Politics'));
-INSERT INTO articles (title, subtitle, date, topic_id) VALUES ('Rights vs. Priviliges', 'A Reasoned Explanation', NOW(), (SELECT id FROM topics WHERE name = 'Law'));
-INSERT INTO articles (title, subtitle, date, topic_id) VALUES ('The Case for Bitcoin', 'A Cryptocurrency Revolution', NOW(), (SELECT id FROM topics WHERE name = 'Economy'));
+INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(RAND()), 'The Syria Situation', 'Suspicions and Allegations', '2013-08-29 21:00:00', (SELECT id FROM topics WHERE name = 'Politics'));
+INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(RAND()), 'The Case for Bitcoin', 'A Cryptocurrency Revolution', NOW(), (SELECT id FROM topics WHERE name = 'Economy'));
+
+INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(RAND()), 'Rights vs. Priviliges', 'A Reasoned Explanation', NOW(), (SELECT id FROM topics WHERE name = 'Law'));
+
 
 INSERT INTO resources (resource_type_id) VALUES ((SELECT id FROM resource_types WHERE type="Image"))
 INSERT INTO resources (resource_type_id) VALUES ((SELECT id FROM resource_types WHERE type="Article"))
@@ -156,6 +143,16 @@ INSERT INTO resources (resource_type_id, rkey, rvalue)
 INSERT INTO resources_graph (resource1_id, resource2_id) VALUES
        ((SELECT id from 
 
+INSERT INTO resources (id, resource_type_id, rkey, rvalue) VALUES
+       (SHA1(RAND()),
+        (SELECT rt.id FROM resource_types AS rt WHERE rt.type = 'String'),
+       'Extension', 'jpg')
+
+# jpg key
+INSERT INTO resources_graph (id, resource1_id, resource2_id) VALUES
+       (SHA1(RAND()),
+	'4519f966fe17ab0a4912eac23517c0d5b9cb2467',
+        '590da4f30aab220e68c11f5820f369c6e50f2f40')
 
 # Adding new images to the resources table
 INSERT INTO resources (resource_type_id, rvalue) VALUES ((SELECT rt.id FROM resource_types AS rt WHERE rt.type="Image"), sha2(rand(), 256))
@@ -165,3 +162,18 @@ SELECT id FROM resources ORDER BY DESC;
 INSERT INTO resources (resource_type_id, rkey, rvalue) VALUES ((SELECT rt.id FROM resource_types AS rt WHERE rt.type="String"), "extension", "jpg")
 
 INSERT INTO resources_graph(resource1_id, resource2_id) VALUES (id1, id2);
+
+
+// rEPLACE WITH RESOURCES!
+CREATE TABLE IF NOT EXISTS contactinfo (
+       id CHAR(40) NOT NULL PRIMARY KEY
+       contact_type VARCHAR(255) NOT NULL,
+       value VARCHAR(2000) NOT NULL);
+
+CREATE TABLE IF NOT EXISTS authors_contactinfo_graph (
+       id CHAR(40) NOT NULL PRIMARY KEY,
+       author_id CHAR(40) NULL,
+       contactinfo_id CHAR(40) NOT NULL,
+       FOREIGN KEY (author_id) REFERENCES authors(id),
+       FOREIGN KEY (contactinfo_id) REFERENCES contactinfo(id));
+

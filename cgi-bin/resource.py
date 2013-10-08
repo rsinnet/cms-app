@@ -14,15 +14,39 @@ class Resource:
     def __init__(self, cursor, rtype, rvalue = None, rkey = None, debug = None):
         self.cursor = cursor
         self.debug = debug
-        if debug:
-            self.id = get_random_hash(cursor, True)
-        else:
-            self.id = get_random_hash(cursor)
         self.rvalue = rvalue
         self.rkey = rkey
         self.rtype = rtype
+        self.id = None
+
+    def load_resource(self):
+        foo = ""
+        if self.rtype == "String":
+            sql_query = "SELECT r.id FROM resources AS r " + \
+                "WHERE resource_type_id=" + \
+                "(SELECT rt.id FROM resource_types AS rt " + \
+                "WHERE rt.type='String') AND " + \
+                "r.rkey='" + self.rkey + "' AND r.rvalue='" + self.rvalue + "'"
+            if self.debug:
+                print sql_query + "<br/><br/>"
+            self.cursor.execute(sql_query)
+            self.id = self.cursor.fetchone()[0]
+            print "String &laquo;" + self.rkey + \
+                "&raquo; already exists with value &laquo;" + \
+                self.rvalue + "&raquo; and ID &laquo;" + \
+                self.id + "&raquo;</br/><br/>"
 
     def add_resource(self):
+        self.load_resource()
+        if self.id:
+            return False
+
+        if self.debug:
+            self.id = get_random_hash(self.cursor, True)
+        else:
+            self.id = get_random_hash(self.cursof);
+
+
         values = []
         cols = []
 
@@ -51,7 +75,7 @@ class Resource:
         sql_query = "INSERT INTO resources " + sc.format(*cols) + \
             " VALUES " + sv.format(*values);
         if self.debug:
-            print sql_query + "<br/><br/>"
+            print sql_query + "<br/><br/><hr/>"
 
     def link_to_child(self, resource):
         self.link_resources(self, resource)
@@ -60,10 +84,12 @@ class Resource:
         self.link_resources(resource, self)
 
     def link_resources(self, resource1, resource2):
+        if not resource1.id or not resource2.id:
+            return
         resource_link_id = get_random_hash(self.cursor)
         sql_query = "INSERT INTO resources_graph " + \
             "(id, resource1_id, resource2_id) " + \
             "VALUES ('" + resource_link_id + "', '" + resource1.id + "', '" + \
             resource2.id + "')"
         if self.debug:
-            print sql_query + "<br/><br/>"
+            print sql_query + "<br/><br/><hr/>"

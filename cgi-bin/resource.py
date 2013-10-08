@@ -20,8 +20,8 @@ class Resource:
         self.id = None
 
     def load_resource(self):
-        foo = ""
-        if self.rtype == "String":
+        if self.rtype == "String" and \
+                (not self.rvalue == "" or self.rvalue):
             sql_query = "SELECT r.id FROM resources AS r " + \
                 "WHERE resource_type_id=" + \
                 "(SELECT rt.id FROM resource_types AS rt " + \
@@ -39,6 +39,12 @@ class Resource:
 
     def add_resource(self):
         self.load_resource()
+        if not self.rvalue and (self.rtype == "Attribution" or \
+                                    self.rkey == "Title" or \
+                                    self.rkey == "Extension" or \
+                                    self.rkey == "Location"):
+            return False
+
         if self.id:
             return False
 
@@ -46,7 +52,6 @@ class Resource:
             self.id = get_random_hash(self.cursor, True)
         else:
             self.id = get_random_hash(self.cursof);
-
 
         values = []
         cols = []

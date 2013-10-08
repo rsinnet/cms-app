@@ -31,6 +31,12 @@ resource_title.debug = True
 resource_title.add_resource()
 resource_title.link_to_parent(resource_image)
 
+# Add a location resource.
+resource_location = Resource(cursor, "String", form["location"].value, "Location")
+resource_location.debug = True
+resource_location.add_resource()
+resource_location.link_to_parent(resource_image)
+
 # Add an attribution.
 resource_attribution = Resource(cursor, "Attribution", form.getvalue("attribution"))
 resource_attribution.debug = True

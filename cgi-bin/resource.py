@@ -30,11 +30,12 @@ class Resource:
             if self.debug:
                 print sql_query + "<br/><br/>"
             self.cursor.execute(sql_query)
-            self.id = self.cursor.fetchone()[0]
-            print "String &laquo;" + self.rkey + \
-                "&raquo; already exists with value &laquo;" + \
-                self.rvalue + "&raquo; and ID &laquo;" + \
-                self.id + "&raquo;</br/><br/>"
+            if self.cursor.rowcount > 0:
+                self.id = self.cursor.fetchone()[0]
+                print "String &laquo;" + self.rkey + \
+                    "&raquo; already exists with value &laquo;" + \
+                    self.rvalue + "&raquo; and ID &laquo;" + \
+                    self.id + "&raquo;</br/><br/>"
 
     def add_resource(self):
         self.load_resource()

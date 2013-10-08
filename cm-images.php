@@ -42,7 +42,7 @@
       <ul>
 	<li><a href="index.html">Main</a></li>
 	<li><a href="#">Articles</a><li>
-	<li class="current_page_item"><a href="add-image.php">Images</a></li>
+	<li class="current_page_item"><a href="cm-images.php">Images</a></li>
 	<li><a href="#">Metadata</a></li>
       </ul>
     </nav>
@@ -95,14 +95,14 @@
 		      </tr>
 		      <tr id="submittr" class="bgdisabled">
 			<td colspan="2" class="mvalign" style="text-align: center;">
-			  <input id="submitbutton" type="submit" value="Images to Database"/>
+			  <input id="submitbutton" type="submit" value="Add Image to Database"/>
 			</td>
 		      </tr>
 		    </table>
 		    <input type="hidden" name="extension" id="extension"/>
 		  </form>
 
-		  <script src="js/add-image.js"></script>
+		  <script src="js/cm-images.js"></script>
 	      </article>
 	      
 	      <!-- /Content -->

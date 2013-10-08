@@ -64,49 +64,40 @@
 		      td { padding: 5px;}
 		    </style>
 		    <table>
-		      <tr>
-			<td>Upload Image</td>
-			<td width="300"><input type="file" name="file" id="inputFile"/></td>
+		      <tr id="filetr" class="bgdisabled">
+			<td class="mvalign">Upload Image</td>
+			<td style="text-align: center">
+			  <input type="file" name="file" id="inputFile"/>
+			</td>
 		      </tr>
-		      <tr>
-			<td style="vertical-align: middle;">Attribution</td>
-			<td><textarea name="attribution" cols="80" rows="3"></textarea>
+		      <tr id="titletr" class="bgdisabled">
+			<td class="mvalign">Title</td>
+			<td><textarea name="title" id="titleta" class="resourcetextarea"></textarea></td>
 		      </tr>
-		      <tr>
+		      <tr id="locationtr" class="bgdisabled">
+			<td class="mvalign">Location</td>
+			<td><textarea name="location" id="locationta" class="resourcetextarea"></textarea></td>
+		      </tr>
+		      <tr id="attributiontr" class="bgdisabled">
+			<td class="mvalign">Attribution</td>
+			<td>
+			  <textarea name="attribution" id="attributionta" class="resourcetextarea"></textarea>
+			</td>
+		      </tr>
+		      <tr id="extensiontr" class="bgdisabled">
 			<td>Extension</td>
 			<td id="extensionCell"></td>
 		      </tr>
-		      <tr>
-			<td></td>
-			<td><input type="submit" value="Add Image to Database"/></td>
+		      <tr id="submittr" class="bgdisabled">
+			<td colspan="2" class="mvalign" style="text-align: center;">
+			  <input id="submitbutton" type="submit" value="Add Image to Database"/>
+			</td>
 		      </tr>
 		    </table>
 		    <input type="hidden" name="extension" id="extension"/>
 		  </form>
 
-		  <script>
-		    function get_file_extension(file_name) {
-		    foo = file_name.split('.');
-		    var l = foo.length;
-		    if (l > 1)
-		    return foo[l-1];
-		    else
-		    return "";
-		    }
-		    
-		    $("#inputFile").change(function(){
-		    var ext = get_file_extension($(this).val());
-		    $("#extensionCell").html(ext);
-		    $("input[name='extension']:hidden").val(ext);
-		    });
-		  </script>
-
-  		  <?php
-		      // Just invoke python, forget PHP.
-      		    $result = shell_exec('./cgi-bin/add-resource.py');
-		    //echo $result;
-		  ?>
-		  
+		  <script src="js/add-image.js"></script>
 	      </article>
 	      
 	      <!-- /Content -->

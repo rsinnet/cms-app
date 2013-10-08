@@ -19,11 +19,17 @@ resource_image = Resource(cursor, "Image");
 resource_image.debug = True
 resource_image.add_resource()
 
-# Add the file extension if it doesn't exist.
+# Add a file extension resource.
 resource_extension = Resource(cursor, "String", form["extension"].value, "Extension")
 resource_extension.debug = True
 resource_extension.add_resource()
 resource_extension.link_to_parent(resource_image)
+
+# Add a title resource.
+resource_title = Resource(cursor, "String", form["title"].value, "Title")
+resource_title.debug = True
+resource_title.add_resource()
+resource_title.link_to_parent(resource_image)
 
 # Add an attribution.
 resource_attribution = Resource(cursor, "Attribution", form.getvalue("attribution"))

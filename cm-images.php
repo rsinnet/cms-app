@@ -93,7 +93,7 @@
 			<td>Extension</td>
 			<td id="extensionCell"></td>
 		      </tr>
-		      <tr id="submittr" class="bgdisabled">
+		      <tr id="submittr" class="bgdisabled">>
 			<td colspan="2" class="mvalign" style="text-align: center;">
 			  <input id="submitbutton" type="submit" value="Add Image to Database"/>
 			</td>

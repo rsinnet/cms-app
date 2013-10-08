@@ -33,7 +33,8 @@ function clear_form()
 }
 
 $("#submitbutton").submit(function(){
-    update_button_state($("submitbutton"), false);
+    update_button_state($("#submitbutton"), false);
+    update_tr_state($("#submittr"), false);
 });
 
 $("#titleta").change(function(){

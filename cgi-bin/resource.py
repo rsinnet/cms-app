@@ -81,7 +81,7 @@ class Resource:
         sql_query = "INSERT INTO resources " + sc.format(*cols) + \
             " VALUES " + sv.format(*values);
         if self.debug:
-            print sql_query + "<br/><br/><hr/>"
+            print sql_query + "<br/><hr/>"
 
     def link_to_child(self, resource):
         self.link_resources(self, resource)
@@ -98,4 +98,4 @@ class Resource:
             "VALUES ('" + resource_link_id + "', '" + resource1.id + "', '" + \
             resource2.id + "')"
         if self.debug:
-            print sql_query + "<br/><br/><hr/>"
+            print sql_query + "<br/><hr/>"

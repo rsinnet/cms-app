@@ -3,6 +3,11 @@
 3. Link in with facebook API. Perhaps PHP would be a good choice.
 4. Maybe a storage and retreival system for html? store each part of the page?
 
+Important:
+
+# Use SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())) to create ids so the imput dimension is larger than or equal to the output.
+# Hash collisions probability will increase if output space is reduced by providing less entropy than 160 bit.
+
 tables:
 
 
@@ -72,7 +77,7 @@ CREATE TABLE IF NOT EXISTS resource_types (
        id CHAR(40) NOT NULL PRIMARY KEY,
        type VARCHAR(2000) NOT NULL);
 
-INSERT INTO resource_types (id, type) VALUES (SHA1(RAND()), "Article"), (SHA1(RAND()), "Image"), (SHA1(RAND()), "String");
+INSERT INTO resource_types (id, type) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), "Article"), (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), "Image"), (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), "String");
 
 CREATE TABLE IF NOT EXISTS resources (
        id CHAR(40) NOT NULL PRIMARY KEY,
@@ -83,14 +88,14 @@ CREATE TABLE IF NOT EXISTS resources (
 );
       
 INSERT INTO resources (id, resource_type_id, rvalue) VALUES
-       (SHA1(RAND()), (SELECT id FROM resource_types WHERE type="Attribution"),
+       (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), (SELECT id FROM resource_types WHERE type="Attribution"),
        "By CASASCIUS (CASASCIUS) [<a href='http://creativecommons.org/licenses/by/3.0'>CC-BY-3.0</a>], via <a href='http://commons.wikimedia.org'>Wikimedia Commons</a>");
 INSERT INTO resources (id, resource_type_id, rvalue) VALUES
-       (SHA1(RAND()), (SELECT id FROM resource_types WHERE type="Attribution"),
+       (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), (SELECT id FROM resource_types WHERE type="Attribution"),
        'By Bernard Gagnon (Own work) [<a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> or <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA-3.0-2.5-2.0-1.0</a>], <a href="http://commons.wikimedia.org/wiki/File%3AAl-Hamidiyah_Souq_02.jpg">via  Wikimedia Commons</a>');
 
-INSERT INTO resources (id, resource_type_id) VALUES (SHA1(RAND()), (SELECT rt.id FROM resource_types AS rt where rt.type='Image'));
-INSERT INTO resources (id, resource_type_id) VALUES (SHA1(RAND()), (SELECT rt.id FROM resource_types AS rt where rt.type='Article'));
+INSERT INTO resources (id, resource_type_id) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), (SELECT rt.id FROM resource_types AS rt where rt.type='Image'));
+INSERT INTO resources (id, resource_type_id) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), (SELECT rt.id FROM resource_types AS rt where rt.type='Article'));
 
 INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (5, 3);
 INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (6, 4);
@@ -117,18 +122,18 @@ INSERT INTO articles_resources_graph (article_id, resource_id) VALUES (1, 5);
 INSERT INTO articles_resources_graph (article_id, resource_id) VALUES (3, 6);
 
 INSERT INTO topics (id, name) VALUES
-        (SHA1(RAND()), 'Politics'),
-        (SHA1(RAND()), 'Economy'),
-	(SHA1(RAND()), 'Law'),
-	(SHA1(RAND()), 'Philosophy'),
-	(SHA1(RAND()), 'Science');
+        (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'Politics'),
+        (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'Economy'),
+	(SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'Law'),
+	(SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'Philosophy'),
+	(SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'Science');
 
-INSERT INTO authors (id, name, email) VALUES (SHA1(RAND()), 'Ryan W. Sinnet', 'ryan@iamphilosopher.com');
+INSERT INTO authors (id, name, email) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'Ryan W. Sinnet', 'ryan@iamphilosopher.com');
 
-INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(RAND()), 'The Syria Situation', 'Suspicions and Allegations', '2013-08-29 21:00:00', (SELECT id FROM topics WHERE name = 'Politics'));
-INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(RAND()), 'The Case for Bitcoin', 'A Cryptocurrency Revolution', NOW(), (SELECT id FROM topics WHERE name = 'Economy'));
+INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'The Syria Situation', 'Suspicions and Allegations', '2013-08-29 21:00:00', (SELECT id FROM topics WHERE name = 'Politics'));
+INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'The Case for Bitcoin', 'A Cryptocurrency Revolution', NOW(), (SELECT id FROM topics WHERE name = 'Economy'));
 
-INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(RAND()), 'Rights vs. Priviliges', 'A Reasoned Explanation', NOW(), (SELECT id FROM topics WHERE name = 'Law'));
+INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'Rights vs. Priviliges', 'A Reasoned Explanation', NOW(), (SELECT id FROM topics WHERE name = 'Law'));
 
 
 INSERT INTO resources (resource_type_id) VALUES ((SELECT id FROM resource_types WHERE type="Image"))
@@ -144,13 +149,13 @@ INSERT INTO resources_graph (resource1_id, resource2_id) VALUES
        ((SELECT id from 
 
 INSERT INTO resources (id, resource_type_id, rkey, rvalue) VALUES
-       (SHA1(RAND()),
+       (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())),
         (SELECT rt.id FROM resource_types AS rt WHERE rt.type = 'String'),
        'Extension', 'jpg')
 
 # jpg key
 INSERT INTO resources_graph (id, resource1_id, resource2_id) VALUES
-       (SHA1(RAND()),
+       (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())),
 	'4519f966fe17ab0a4912eac23517c0d5b9cb2467',
         '590da4f30aab220e68c11f5820f369c6e50f2f40')
 

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-# Adds a resource to the 
+# Adds an image with supporting data.
+
 from resource import Resource
 from iap_utils import *
 
@@ -26,4 +27,3 @@ resource_attribution = Resource(cursor, "Attribution")
 resource_attribution.debug = True
 resource_attribution.add_resource()
 resource_attribution.link_to_parent(resource_image)
-

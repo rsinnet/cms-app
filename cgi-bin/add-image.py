@@ -10,7 +10,7 @@ form = cgi.FieldStorage(keep_blank_values=True)
 
 # Establish connection to the database
 db = connect_to_iap_db()
-cursor = db.cursor();
+cursor = db.cursor()
 
 print "Content-type: text/html\n\n";
 

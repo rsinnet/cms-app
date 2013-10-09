@@ -77,19 +77,20 @@ WHERE r1.id=""" + str(id);
         resource_div = dom.createElement("div");
         root.appendChild(resource_div);
 
-        key_span = dom.createElement("span")
-        key_span.attributes["style"] = "font-weight: bold;"
-        resource_div.appendChild(key_span)
+        for (key, value) in (self.keys, self.values):
+            key_span = dom.createElement("span")
+            key_span.attributes["style"] = "font-weight: bold;"
+            resource_div.appendChild(key_span)
 
-        txt = dom.createTextNode(self.keys[0])
-        key_span.appendChild(txt)
+            txt = dom.createTextNode(self.keys[0])
+            key_span.appendChild(txt)
 
-        key_value = dom.createElement("span");
-        key_value.attributes["style"] = "font-style: italic;"
-        resource_div.appendChild(key_value)
+            key_value = dom.createElement("span");
+            key_value.attributes["style"] = "font-style: italic;"
+            resource_div.appendChild(key_value)
 
-        txt = dom.createTextNode(self.values[0])
-        key_value.appendChild(txt)
+            txt = dom.createTextNode(self.values[0])
+            key_value.appendChild(txt)
 
         return dom
 

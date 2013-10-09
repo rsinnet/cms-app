@@ -127,6 +127,7 @@ WHERE r1.id='""" + str(id) + "'";
         # ^<\?xml.*\(\?\)>\s*
         return xml_to_html(self.get_xml_dom().toprettyxml())
 
+print 'Content-Type: text/html\n\n'
 print iapArticle(db, '3dd19be22ffffb3f616e777d4ff017f62c37097e');
 
 # Get all resources related to this article

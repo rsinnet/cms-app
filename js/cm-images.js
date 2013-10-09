@@ -63,3 +63,40 @@ $("#inputFile").change(function(){
 $(document).ready(function(){
     clear_form();
 });
+
+function allowDrop(ev)
+{
+    ev.preventDefault();
+}
+
+function extractIdFromResourceFileName(filename)
+{
+    // Extract the 40 character resource id from the filename.
+    var foo = filename.match(/\/resources\/([0-9a-f]{40})\./);
+    return foo[1];
+}
+
+function drag(ev)
+{
+    ev.dataTransfer.setData("Text", extractIdFromResourceFileName(ev.target.src));
+}
+
+function drop(ev)
+{
+    ev.preventDefault();
+    id = ev.dataTransfer.getData("Text");
+    request = $.ajax({
+	url: "cm-get-image-metadata.py",
+	type: "get",
+	data: "id=" + i,d
+	complete: function(jqXHR, textStatus) {
+	    alert('hey: ' + textStatus);
+	}
+    });
+    //ev.target.appendChild(document.getElementById(ev.dataTransfer.getData("Text")));
+}
+
+// Loads an image into the image editor, i.e., after drag and drop.
+function loadEditImageAjax()
+{    
+}

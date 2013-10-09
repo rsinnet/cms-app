@@ -696,5 +696,9 @@ ul.meta li.comments:before
     background: #deb0b1;
 }
 
+.cmtdforms {
+    padding: 5px;
+}
+
 #droppable {
 }

@@ -18,3 +18,12 @@ def strip_xml_tag(xml_string):
 
 def xml_to_html(xml_string):
     return parser.unescape(strip_xml_tag(xml_string))
+
+def get_random_hash(cursor, debug = False):
+    sql_query = "SELECT SHA1(CONCAT(RAND(), RAND(), " + \
+        "RAND(), RAND(), RAND())) as id"
+    if debug:
+        print sql_query + "<br/><br/>"
+    cursor.execute(sql_query)
+    xhash = cursor.fetchone()[0]
+    return xhash

@@ -58,53 +58,17 @@
 	      <!-- Content -->
 	      
 	      <article class="is-page-content">
+		<script src="js/cm-images.js"></script>
+
 		<section>
 		  <h3>Browse Images</h3>
-		  <?php system('cgi-bin/cm-image-list.py') ?>
+		  <?php system('cgi-bin/cm_image_list.py') ?>
 
 		  <h3>Edit Image</h3>
 		  <?php include 'cgi-bin/cm-edit-image.php'; ?>
 
 		  <h3>Add Image</h3>
-		  <form method="POST" action="cgi-bin/add-image.py" enctype="multipart/form-data">
-		    <style>
-		      td { padding: 5px;}
-		    </style>
-		    <table>
-		      <tr id="filetr" class="bgdisabled">
-			<td class="mvalign">Upload Image</td>
-			<td style="text-align: center">
-			  <input type="file" name="file" id="inputFile"/>
-			</td>
-		      </tr>
-		      <tr id="titletr" class="bgdisabled">
-			<td class="mvalign">Title</td>
-			<td><textarea name="title" id="titleta" class="resourcetextarea"></textarea></td>
-		      </tr>
-		      <tr id="locationtr" class="bgdisabled">
-			<td class="mvalign">Location</td>
-			<td><textarea name="location" id="locationta" class="resourcetextarea"></textarea></td>
-		      </tr>
-		      <tr id="attributiontr" class="bgdisabled">
-			<td class="mvalign">Attribution</td>
-			<td>
-			  <textarea name="attribution" id="attributionta" class="resourcetextarea"></textarea>
-			</td>
-		      </tr>
-		      <tr id="extensiontr" class="bgdisabled">
-			<td>Extension</td>
-			<td id="extensionCell"></td>
-		      </tr>
-		      <tr id="submittr" class="bgdisabled">
-			<td colspan="2" class="mvalign" style="text-align: center;">
-			  <input id="submitbutton" type="submit" value="Add Record"/>
-			</td>
-		      </tr>
-		    </table>
-		    <input type="hidden" name="extension" id="extension"/>
-		  </form>
-
-		  <script src="js/cm-images.js"></script>
+		  <?php include 'cgi-bin/cm-add-image.php'; ?>
 	      </article>
 	      
 	      <!-- /Content -->

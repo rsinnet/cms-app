@@ -6,12 +6,13 @@
   -->
 <html>
   <head>
-    <title>Images - Content Manager - I AM PHILOSOPHER</title>
+    <title>Articles - Content Manager - I AM PHILOSOPHER</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700|Open+Sans+Condensed:700" rel="stylesheet" />
-    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/skel.min.js"></script>
     <script src="js/skel-panels.min.js"></script>
@@ -30,7 +31,7 @@
     <header id="header">
       <div class="logo">
 	<div>
-	  <h1><a href="#" id="logo">Images [CM]</a></h1>
+	  <h1><a href="#" id="logo">Articles [CM]</a></h1>
 	  <span class="byline">I AM PHILOSOPHER</span>
 	</div>
       </div>
@@ -41,8 +42,8 @@
     <nav id="nav" class="skel-panels-fixed">
       <ul>
 	<li><a href="index.html">Main</a></li>
-	<li><a href="#">Articles</a><li>
-	<li class="current_page_item"><a href="cm-images.php">Images</a></li>
+	<li class="current_page_item"><a href="cm-articles.php">Articles</a><li>
+	<li><a href="cm-images.php">Images</a></li>
 	<li><a href="#">Metadata</a></li>
       </ul>
     </nav>
@@ -58,51 +59,18 @@
 	      <!-- Content -->
 	      
 	      <article class="is-page-content">
-		<section>
-		  <p> whoaza </p>
-		</section>
+		<script type="text/javascript" src="js/cm-images.js"></script>
+		<script type="text/javascript" src="js/cm-articles.js"></script>
 
 		<section>
-		  <h3>Images</h3>
-		  <form method="POST" action="cgi-bin/add-image.py" enctype="multipart/form-data">
-		    <style>
-		      td { padding: 5px;}
-		    </style>
-		    <table>
-		      <tr id="filetr" class="bgdisabled">
-			<td class="mvalign">Upload Image</td>
-			<td style="text-align: center">
-			  <input type="file" name="file" id="inputFile"/>
-			</td>
-		      </tr>
-		      <tr id="titletr" class="bgdisabled">
-			<td class="mvalign">Title</td>
-			<td><textarea name="title" id="titleta" class="resourcetextarea"></textarea></td>
-		      </tr>
-		      <tr id="locationtr" class="bgdisabled">
-			<td class="mvalign">Location</td>
-			<td><textarea name="location" id="locationta" class="resourcetextarea"></textarea></td>
-		      </tr>
-		      <tr id="attributiontr" class="bgdisabled">
-			<td class="mvalign">Attribution</td>
-			<td>
-			  <textarea name="attribution" id="attributionta" class="resourcetextarea"></textarea>
-			</td>
-		      </tr>
-		      <tr id="extensiontr" class="bgdisabled">
-			<td>Extension</td>
-			<td id="extensionCell"></td>
-		      </tr>
-		      <tr id="submittr" class="bgdisabled">>
-			<td colspan="2" class="mvalign" style="text-align: center;">
-			  <input id="submitbutton" type="submit" value="Add Image to Database"/>
-			</td>
-		      </tr>
-		    </table>
-		    <input type="hidden" name="extension" id="extension"/>
-		  </form>
+		  <h3>Browse Articles</h3>
+		  <?php system('cgi-bin/cm_article_list.py') ?>
 
-		  <script src="js/cm-images.js"></script>
+		  <h3>Edit Article</h3>
+		  <?php include 'cgi-bin/cm-edit-article.php'; ?>
+
+		  <h3>Add Artlice</h3>
+		  <?php include 'cgi-bin/cm-add-image.php'; ?>
 	      </article>
 	      
 	      <!-- /Content -->

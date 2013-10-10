@@ -666,7 +666,7 @@ ul.meta li.comments:before
 }
 
 .resourcetextarea {
-    height: 65px;
+    height: 100px;
     width: 500px;
     font-family: 'Open Sans', sans-serif;
     font-size: 10pt;
@@ -698,7 +698,4 @@ ul.meta li.comments:before
 
 .cmtdforms {
     padding: 5px;
-}
-
-#droppable {
 }

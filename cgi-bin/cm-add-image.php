@@ -1,7 +1,8 @@
-<form method="POST" action="cgi-bin/add-image.py" enctype="multipart/form-data">
+<form method="POST" action="cgi-bin/cm_add_image.py" enctype="multipart/form-data">
   <style>
   </style>
-  <table>
+  <table id="addimage_table" style="border-radius: 8px;" class="bgdisabled">
+    <tr><td>&nbsp;</td></tr>
     <tr id="filetr" class="bgdisabled">
       <td class="mvalign cmtdforms">Upload Image</td>
       <td style="text-align: center" class="cmtdforms">
@@ -24,13 +25,15 @@
     </tr>
     <tr id="extensiontr" class="bgdisabled">
       <td class="cmtdforms">Extension</td>
-      <td id="extensionCell" class="cmtdforms"></td>
+      <td class="cmtdforms">
+	<input name="extension" id="extensiontf" type="text" class="resourcetextfield"></input>
+      </td>
     </tr>
     <tr id="submittr" class="bgdisabled">
       <td colspan="2" class="mvalign cmtdforms" style="text-align: center;">
 	<input id="submitbutton" type="submit" value="Add Record"/>
       </td>
     </tr>
+    <tr><td>&nbsp;</td></tr>
   </table>
-  <input type="hidden" name="extension" id="extension"/>
 </form>

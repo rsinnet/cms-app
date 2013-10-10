@@ -1,8 +1,10 @@
 from iap_utils import *
+
 import re
 
 class Resource:
-    def __init__(self, id = None, debug = None):
+    def __init__(self, cursor, id = None, debug = None):
+        self.cursor = cursor
         self.debug = debug
         self.id = id
         if not id is None:
@@ -34,15 +36,19 @@ class Resource:
                     self.rvalue + "&raquo; and ID &laquo;" + \
                     self.id + "&raquo;</br/><br/>"
 
-    def add_resource(self, cursor, rtype, rkey = None, rvalue = None):
+    def add_resource(self, rtype, rkey = None, rvalue = None):
+        self.rtype = rtype
+        self.rkey = rkey
+        self.rvalue = rvalue
+
+        if self.id:
+            return False
+
         if not self.rvalue and (self.rtype == "Attribution" or \
                                     self.rkey == "Title" or \
                                     self.rkey == "Extension" or \
                                     self.rkey == "Location" or \
                                     self.rkey == "Description"):
-            return False
-
-        if self.id:
             return False
 
         if self.debug:
@@ -69,7 +75,7 @@ class Resource:
             sv = "('{0}', {1}, '{2}')"
             sc = '({0}, {1}, {2})'
 
-        if self.rkey:
+        if self.rkey and self.rvalue:
             values.append(re.sub("'", "''", self.rkey))
             cols.append("rkey")
             sv = "('{0}', {1}, '{2}', '{3}')"
@@ -99,32 +105,95 @@ class Resource:
 
 class iapArticle:
     def __init__(self, cursor, id):
-        # article_id
-        self.id = id
-        sql_query = "SELECT r1.id AS resource_id, " + \
-            "rt1.type AS resource_type, " + \
-            "r1.rvalue AS resource_value " + \
+        self.cursor = cursor
+        self.id = id           # resource id
+
+        self.article_id = ""
+        self.keys = []
+        self.values = []
+        self.title = ""
+        self.subtitle = ""
+        self.date = ":"
+        self.topic = ""
+
+        # Fetch the article metadata
+        sql_query = "SELECT r1.id AS resource_id, a1.id AS article_id, " + \
+            "a1.title AS title, a1.subtitle AS subtitle, a1.date as date, " + \
+            "t1.name AS topic " + \
             "FROM resources AS r1 " + \
-            "INNER JOIN resources_graph AS rg1 ON r1.id=rg1.resource2_id " + \
-            "INNER JOIN resources AS r2 ON r2.id=rg1.resource1_id " + \
-            "INNER JOIN articles_resources_graph AS arg1 ON r2.id=arg1.resource_id " + \
-            "INNER JOIN articles AS a1 ON a1.id=arg1.article_id " + \
-            "INNER JOIN resource_types AS rt1 ON rt1.id=r1.resource_type_id " + \
-            "WHERE rt1.type='Image' AND a1.id='""" + str(id) + "'"
+            "INNER JOIN articles_resources_graph AS arg1 ON r1.id=arg1.resource_id " + \
+            "INNER JOIN articles AS a1 ON arg1.article_id=a1.id " + \
+            "INNER JOIN topics AS t1 ON a1.topic_id=t1.id " + \
+            "WHERE r1.id='" + id + "'"
 
         cursor.execute(sql_query)
-        rows = cursor.fetchall()
-        self.images = []
-        for row in rows:
-            if row[1] == "Image":
-                self.images.append(iapImage(cursor, row[0]))
+        if cursor.rowcount == 1:
+            row = cursor.fetchone()
+            self.article_id = row[1]
+            self.title = row[2]
+            self.subtitle = row[3]
+            self.date = row[4]
+            self.topic = row[5]
 
     def get_xml_dom(self):
         impl = getDOMImplementation()
         dom = impl.createDocument(None, "div", None)
         root = dom.documentElement
-        for image in self.images:
-            root.appendChild(image.get_xml_dom().documentElement)
+        root.attributes["style"] = \
+            "background: #c8c0a4;" + \
+            "border-radius: 8px;" + \
+            "max-width: 500px;" + \
+            "text-align: center;"
+        root.attributes["class"] = "article_draggable"
+
+        br_element = dom.createElement("br")
+
+        id_span = dom.createElement("span")
+        id_span.attributes["style"] = \
+            "position: absolute;" + \
+            "visibility: hidden;"
+        txt = dom.createTextNode(self.id)
+        id_span.appendChild(txt)
+        root.appendChild(id_span)
+
+
+        article_id_span = dom.createElement("span")
+        article_id_span.attributes["style"] = \
+            "position: absolute;" + \
+            "visibility: hidden;"
+        txt = dom.createTextNode(self.article_id)
+        article_id_span.appendChild(txt)
+        root.appendChild(id_span)
+
+        date_span = dom.createElement("span")
+        date_span.attributes["style"] = \
+            "position: absolute;" + \
+            "visibility: hidden;"
+        txt = dom.createTextNode(self.date.isoformat())
+        date_span.appendChild(txt)
+        root.appendChild(date_span)
+
+        topic_span = dom.createElement("span")
+        topic_span.attributes["style"] = \
+            "font-weight: bold;"
+        txt = dom.createTextNode(self.topic)
+        topic_span.appendChild(txt)
+        root.appendChild(topic_span)
+
+        title_span = dom.createElement("span")
+        txt = dom.createTextNode(self.title + ": ")
+        title_span.appendChild(txt)
+        root.appendChild(title_span)
+
+        subtitle_span = dom.createElement("span")
+        txt = dom.createTextNode(self.subtitle)
+        subtitle_span.appendChild(txt)
+        root.appendChild(subtitle_span)
+
+        root.appendChild(br_element)
+
+#for image in self.images:
+        #    root.appendChild(image.get_xml_dom().documentElement)
         #root.attributes["style"] = "max-width: 200px; max-height: 100px;"
         #root.attributes["src"] = "../resources/" + self.id + ".jpg"
         return dom
@@ -135,6 +204,15 @@ class iapImage:
     def __init__(self, cursor, id):
         self.cursor = cursor
         self.id = id           # resource id
+
+        self.keys = []
+        self.values = []
+        self.attribution = ""
+        self.extension = ""
+        self.title = ""
+        self.location = ""
+        self.description = ""
+
         sql_query = "SELECT r1.id AS id, rt1.type, " + \
             "rt2.type AS key_type, r2.rkey, r2.rvalue " + \
             "FROM resources AS r1 " + \
@@ -143,15 +221,10 @@ class iapImage:
             "INNER JOIN resource_types AS rt1 ON r1.resource_type_id=rt1.id " + \
             "INNER JOIN resource_types AS rt2 ON r2.resource_type_id=rt2.id " + \
             "WHERE r1.id='""" + str(id) + "'"
+
         cursor.execute(sql_query)
         rows = cursor.fetchall()
-        self.keys = []
-        self.values = []
-        self.attribution = ""
-        self.extension = ""
-        self.title = ""
-        self.location = ""
-        self.description = ""
+
         for row in rows:
             self.keys.append(row[2])
             self.values.append(row[4])

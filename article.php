@@ -13,9 +13,7 @@
     {
       echo "Failed to connect: " . mysqli_connect_error();
       //redirect to error page.
-      echo "<script>
-  window.location = 'errors/404.html';
-</script>";
+      echo "<script language=\"text/javascript\">window.location = 'errors/404.html';</script>";
     }
   
   $result = $con->query("SELECT name FROM topics ORDER BY id ASC");

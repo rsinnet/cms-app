@@ -127,7 +127,7 @@ class iapArticle:
         self.date = ":"
         self.topic = ""
         if not id is None:
-            load_resource()
+            self.load_article()
 
     def load_article(self):
         # Fetch the article metadata
@@ -138,7 +138,7 @@ class iapArticle:
             "INNER JOIN articles_resources_graph AS arg1 ON r1.id=arg1.resource_id " + \
             "INNER JOIN articles AS a1 ON arg1.article_id=a1.id " + \
             "INNER JOIN topics AS t1 ON a1.topic_id=t1.id " + \
-            "WHERE r1.id='" + id + "'"
+            "WHERE r1.id='" + str(self.id) + "'"
         if self.debug:
             print sql_query + "<br/><br/>"
 
@@ -287,12 +287,8 @@ class iapArticle:
         root.appendChild(subtitle_span)
 
         root.appendChild(br_element)
-
-#for image in self.images:
-#    root.appendChild(image.get_xml_dom().documentElement)
-        #root.attributes["style"] = "max-width: 200px; max-height: 100px;"
-        #root.attributes["src"] = "../resources/" + self.id + ".jpg"
         return dom
+
     def __str__(self):
         return xml_to_html(self.get_xml_dom().toprettyxml())
 

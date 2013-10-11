@@ -39,3 +39,14 @@ def parenthesis_list(list):
 
 def parenthesis_nostr_list(list):
     return "(" + open_list(list) + ")"
+
+
+def redirect_to(str):
+    print "<html><head><script type=\"text/javascript\">"
+    print "var i = 2;"
+    print "var interval = setInterval(function () {"
+    print "  document.getElementById(\"status_message\").innerHTML = \"Redirecting in \" + i + \" seconds...\";"
+    print "  if (--i < 0)"
+    print "    window.location.href = \"" + str  + "\""
+    print "}, 1000);"
+    print "</script></head><body><p id=\"status_message\">Updating Record...</p></html>"

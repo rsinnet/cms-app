@@ -12,7 +12,10 @@ form = cgi.FieldStorage(keep_blank_values=True)
 db = connect_to_iap_db()
 cursor = db.cursor()
 
-print "Content-type: text/html\n\n";
+print "Content-type: text/html"
+print
+
+redirect_to("../cm-images.php")
 
 # Add the image to the resources table.
 resource_image = Resource(cursor);

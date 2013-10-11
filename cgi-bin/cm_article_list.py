@@ -14,11 +14,10 @@ sql_query = "SELECT id FROM resources " + \
     "WHERE resource_type_id=(SELECT id FROM resource_types where type='Article')"
 cursor.execute(sql_query)
 rows = cursor.fetchall()
+
 for row in rows:
-    # print row[0]
-    print "<center>" + str(iapArticle(cursor, row[0])) + "</center>"
-
-
+    print "<center>" + str(iapArticle(cursor, row[0], debug=False)) + "</center>"
+    
 # Get all resources related to this article
 #sql_quer = """\
 #SELECT r3.id, a1.title, rt2.type, r3.rkey, r3.rvalue

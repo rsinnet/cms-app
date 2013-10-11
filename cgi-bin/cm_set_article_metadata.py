@@ -12,10 +12,12 @@ cursor = db.cursor()
 
 form = cgi.FieldStorage()
 
-print "Content-Type: application/json"
+print "Content-Type: text/html"
 print
 
-this_article = iapArticle(cursor, form.getvalue('resource_id'))
+redirect_to("../cm-articles.php")
+
+this_article = iapArticle(cursor, form.getvalue('resource_id'), debug=True)
 this_article.update_record(title=form.getvalue('title'),
                            subtitle=form.getvalue('subtitle'),
                            date=form.getvalue('date'),

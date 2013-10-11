@@ -40,7 +40,7 @@
     <!-- Nav -->
     <nav id="nav" class="skel-panels-fixed">
       <ul>
-	<li><a href="index.html">Main</a></li>
+	<li><a href="index.php">Main</a></li>
 	<li><a href="cm-articles.php">Articles</a><li>
 	<li class="current_page_item"><a href="cm-images.php">Images</a></li>
 	<li><a href="#">Metadata</a></li>

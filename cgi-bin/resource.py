@@ -7,16 +7,30 @@ class Resource:
         self.cursor = cursor
         self.debug = debug
         self.id = id
+        self.rvalue = None
+        self.rkey = None
+        self.rtype = None
         if not id is None:
             self.load_resource()
 
     def load_resource(self):
-        sql_query = "SELECT r1.id, rt1.type, r1.rvalue, r1.rkey " + \
+        sql_query = "SELECT r1.id, rt1.type, r1.key, r1.rvalue, " + \
             "FROM resources AS r1 " + \
             "INNER JOIN resource_types AS rt1 ON r1.resource_type_id=rt1.id " + \
-            "WHERE r.id='" + self.id + "'"
+            "WHERE r1.id='" + self.id + "'"
         if self.debug:
             print sql_query + "<br/><br/>"
+
+        self.cursor.execute(sql_query)
+        if self.cursor.rowcount == 1:
+            row = self.cursor.fetchone()
+            self.rtype = row[2]
+            self.rkey = row[3]
+            self.rvalue = row[4]
+        else:
+            return False
+        return True
+
 
     def check_resource(self):
         if self.rtype == "String" and \
@@ -36,10 +50,13 @@ class Resource:
                     self.rvalue + "&raquo; and ID &laquo;" + \
                     self.id + "&raquo;</br/><br/>"
 
-    def add_resource(self, rtype, rkey = None, rvalue = None):
-        self.rtype = rtype
-        self.rkey = rkey
-        self.rvalue = rvalue
+    def add_resource(self, rtype = None, rkey = None, rvalue = None):
+        if rtype:
+            self.rtype = rtype
+        if rkey:
+            self.rkey = rkey
+        if rvalue:
+            self.rvalue = rvalue
 
         if self.id:
             return False
@@ -59,30 +76,22 @@ class Resource:
         values = []
         cols = []
 
-        values.append(self.id)
-        cols.append("id")
-
-        values.append("(SELECT rt.id FROM resource_types AS rt " + \
-                          "WHERE rt.type='" + self.rtype + "')")
-        cols.append("resource_type_id")
-
-        sv = "('{0}', {1})"
-        sc = '({0}, {1})'
-
-        if self.rvalue:
-            values.append(re.sub("'", "''", self.rvalue))
-            cols.append("rvalue")
-            sv = "('{0}', {1}, '{2}')"
-            sc = '({0}, {1}, {2})'
-
-        if self.rkey and self.rvalue:
-            values.append(re.sub("'", "''", self.rkey))
+        if self.id:
+            values.append("'" + self.id + "'")
+            cols.append("id")
+        if self.rtype:
+            values.append("(SELECT rt.id FROM resource_types AS rt " + \
+                              "WHERE rt.type='" + self.rtype + "')")
+            cols.append("resource_type_id")
+        if self.rkey:
+            values.append("'" + re.sub("'", "''", self.rkey) + "'")
             cols.append("rkey")
-            sv = "('{0}', {1}, '{2}', '{3}')"
-            sc = "({0}, {1}, {2}, {3})"
+        if self.rvalue:
+            values.append("'" + re.sub("'", "''", self.rvalue) + "'")
+            cols.append("rvalue")
 
-        sql_query = "INSERT INTO resources " + sc.format(*cols) + \
-            " VALUES " + sv.format(*values)
+        sql_query = "INSERT INTO resources " + parenthesis_nostr_list(cols) + \
+            " VALUES " + parenthesis_nostr_list(values)
         if self.debug:
             print sql_query + "<br/><hr/>"
 
@@ -103,9 +112,11 @@ class Resource:
         if self.debug:
             print sql_query + "<br/><hr/>"
 
+# @todo Change article to use article id
 class iapArticle:
-    def __init__(self, cursor, id):
+    def __init__(self, cursor, id=None, debug=None):
         self.cursor = cursor
+        self.debug = debug
         self.id = id           # resource id
 
         self.article_id = ""
@@ -115,7 +126,10 @@ class iapArticle:
         self.subtitle = ""
         self.date = ":"
         self.topic = ""
+        if not id is None:
+            load_resource()
 
+    def load_article(self):
         # Fetch the article metadata
         sql_query = "SELECT r1.id AS resource_id, a1.id AS article_id, " + \
             "a1.title AS title, a1.subtitle AS subtitle, a1.date as date, " + \
@@ -125,15 +139,20 @@ class iapArticle:
             "INNER JOIN articles AS a1 ON arg1.article_id=a1.id " + \
             "INNER JOIN topics AS t1 ON a1.topic_id=t1.id " + \
             "WHERE r1.id='" + id + "'"
+        if self.debug:
+            print sql_query + "<br/><br/>"
 
-        cursor.execute(sql_query)
-        if cursor.rowcount == 1:
-            row = cursor.fetchone()
+        self.cursor.execute(sql_query)
+        if self.cursor.rowcount == 1:
+            row = self.cursor.fetchone()
             self.article_id = row[1]
             self.title = row[2]
             self.subtitle = row[3]
             self.date = row[4]
-            self.topic = row[5]
+            self.topic = row[5]       
+        else:
+            return False
+        return True
 
     def validate_entries(self, title=None, subtitle=None, date=None, topic=None):
         return True
@@ -141,33 +160,71 @@ class iapArticle:
     def update_record(self, title=None, subtitle=None, date=None, topic=None):
         if not self.validate_entries(title, subtitle, date, topic):
             return False
+
+        self.title = title
+        self.subtitle = subtitle
+        self.date = date
+        self.topic =  topic
+
+        values = []
+        if title:
+            values.append("title='" + title + "'")
+        if subtitle:
+            values.append("subtitle='" + subtitle + "'")
+        if date:
+            values.append("date='" + date + "'")
+        if topic:
+            values.append("topic_id=(SELECT id FROM topics WHERE name='" + topic + "')")
+
+        sql_query = "UPDATE articles SET " + open_list(values) + \
+            " WHERE article_id='" + self.article_id + "'"
+        if self.debug:
+            print sql_query + "<br/><br/>"
+
+    def add_record(self, title=None, subtitle=None, date=None, topic=None):
+        if not self.validate_entries(title, subtitle, date, topic):
+            return False
+
+        if self.debug:
+            self.id = get_random_hash(self.cursor, True)
+        else:
+            self.id = get_random_hash(self.cursor)
+
         values = []
         cols = []
-        k = 0
-        if title:
-            values.append(title)
-            cols.append("title")
-            sf.append("'{" + k + "}'")
-            k += 1
-        if subtitle:
-            values.append(subtitle)
-            cols.append("subtitle")
-            sf.append("'{" + k + "}'")
-            k += 1
-        if date:
-            values.append(date)
-            cols.append("date")
-            sf.append("'{" + k + "}'")
-            k += 1
-        if topic:
-            values.append(topic)
-            cols.append("topic")
-            sf.append("'{" + k + "}'")
-            k += 1
 
-        sql_query = "INSERT INTO articles " + sf.format(*cols) + \
-            " VALUES " + sf.format(*values)
-        print sql_query
+        if self.id:
+            values.append("'" + self.id + "'")
+            cols.append("id")
+        if title:
+            values.append("'" + title + "'")
+            cols.append("title")
+        if subtitle:
+            values.append("'" + subtitle + "'")
+            cols.append("subtitle")
+        if date:
+            values.append("'" + date.isoformat() + "'")
+            cols.append("date")
+        if topic:
+            values.append("(SELECT id FROM topics WHERE name='" + topic + "')")
+            cols.append("topic_id")
+
+        sql_query = "INSERT INTO articles " + parenthesis_nostr_list(cols) + \
+            " VALUES " + parenthesis_nostr_list(values)
+        if self.debug:
+            print sql_query + "<br/><br/>"
+
+    def link_to_resource(self):
+
+        if not self.article_id or not self.id:
+            return
+        article_resource_link_id = get_random_hash(self.cursor)
+        sql_query = "INSERT INTO articles_resources_graph " + \
+            "(id, article_id, resource_id) " + \
+            "VALUES ('" + article_resource_link_id + "', '" + \
+            self.article_id + "', '" + self.id + "')"
+        if self.debug:
+            print sql_query + "<br/><hr/>"
 
     def get_xml_dom(self):
         impl = getDOMImplementation()
@@ -232,7 +289,7 @@ class iapArticle:
         root.appendChild(br_element)
 
 #for image in self.images:
-        #    root.appendChild(image.get_xml_dom().documentElement)
+#    root.appendChild(image.get_xml_dom().documentElement)
         #root.attributes["style"] = "max-width: 200px; max-height: 100px;"
         #root.attributes["src"] = "../resources/" + self.id + ".jpg"
         return dom

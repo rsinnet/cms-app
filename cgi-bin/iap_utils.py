@@ -27,3 +27,15 @@ def get_random_hash(cursor, debug = False):
     cursor.execute(sql_query)
     xhash = cursor.fetchone()[0]
     return xhash
+
+def open_list(list):
+    return ", ".join ( str(e) for e in list)
+
+def open_str_list(list):
+    return ", ".join ( repr(e) for e in list)
+
+def parenthesis_list(list):
+    return "(" + open_str_list(list) + ")"
+
+def parenthesis_nostr_list(list):
+    return "(" + open_list(list) + ")"

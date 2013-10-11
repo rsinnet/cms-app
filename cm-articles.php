@@ -1,3 +1,26 @@
+<?php
+  include '.include/utilities.php';
+  
+  $dbuser = 'rsinnet_webuser';
+  $dbpass = 'Z?Z07uwL#(4g';
+  
+  $con = mysqli_connect("localhost", $dbuser, $dbpass, "rsinnet_iamphilosopher");
+  if (mysqli_connect_errno())
+    {
+      echo "Failed to connect: " . mysqli_connect_error();
+      //redirect to error page.
+      echo "<script language=\"text/javascript\">window.location = 'errors/404.html';</script>";
+    }
+  
+  $sql_query = "SELECT name FROM topics ORDER BY name ASC";
+  $result = $con->query($sql_query);
+  
+  while ($row = $result->fetch_array())
+    {
+      $topics_list[] = $row['name'];
+    }
+?>
+
 <!DOCTYPE HTML>
 <!--
     TXT 2.0 by HTML5 UP
@@ -41,7 +64,7 @@
     <!-- Nav -->
     <nav id="nav" class="skel-panels-fixed">
       <ul>
-	<li><a href="index.html">Main</a></li>
+	<li><a href="index.php">Main</a></li>
 	<li class="current_page_item"><a href="cm-articles.php">Articles</a><li>
 	<li><a href="cm-images.php">Images</a></li>
 	<li><a href="#">Metadata</a></li>
@@ -60,7 +83,6 @@
 	      
 	      <article class="is-page-content">
 		<script type="text/javascript" src="js/cm-resources.js"></script>
-		<script type="text/javascript" src="js/cm-images.js"></script>
 		<script type="text/javascript" src="js/cm-articles.js"></script>
 
 		<section>
@@ -71,7 +93,8 @@
 		  <?php include 'cgi-bin/cm-edit-article.php'; ?>
 
 		  <h3>Add Article</h3>
-		  <?php include 'cgi-bin/cm-add-image.php'; ?>
+		  <div><a href=".incline/article_template.php">Download template</a></div>
+		  <?php include 'cgi-bin/cm-add-article.php'; ?>
 	      </article>
 	      
 	      <!-- /Content -->

@@ -16,10 +16,7 @@ print "Content-Type: application/json"
 print
 
 this_article = iapArticle(cursor, form.getvalue('resource_id'))
-
-response_data = json.dumps({'id': this_article.id,
-                            'title': this_article.title,
-                            'subtitle': this_article.subtitle,
-                            'date': this_article.date.isoformat(),
-                            'topic': this_article.topic});
-print response_data
+this_article.update_record(title=form.getvalue('title'),
+                           subtitle=form.getvalue('subtitle'),
+                           date=form.getvalue('date'),
+                           topic=form.getvalue('topic'));

@@ -15,9 +15,10 @@ form = cgi.FieldStorage()
 print "Content-Type: application/json"
 print
 
-this_article = iapArticle(cursor, form.getvalue('id'))
+this_article = iapArticle(cursor, form.getvalue('resource_id'))
 
-response_data = json.dumps({'id': this_article.id,
+response_data = json.dumps({'resource_id': this_article.id,
+                            'article_id': this_article.article_id,
                             'title': this_article.title,
                             'subtitle': this_article.subtitle,
                             'date': this_article.date.isoformat(),

@@ -59,6 +59,7 @@
 	      <!-- Content -->
 	      
 	      <article class="is-page-content">
+		<script type="text/javascript" src="js/cm-resources.js"></script>
 		<script type="text/javascript" src="js/cm-images.js"></script>
 		<script type="text/javascript" src="js/cm-articles.js"></script>
 
@@ -69,7 +70,7 @@
 		  <h3>Edit Article</h3>
 		  <?php include 'cgi-bin/cm-edit-article.php'; ?>
 
-		  <h3>Add Artlice</h3>
+		  <h3>Add Article</h3>
 		  <?php include 'cgi-bin/cm-add-image.php'; ?>
 	      </article>
 	      

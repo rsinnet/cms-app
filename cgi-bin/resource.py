@@ -135,6 +135,40 @@ class iapArticle:
             self.date = row[4]
             self.topic = row[5]
 
+    def validate_entries(self, title=None, subtitle=None, date=None, topic=None):
+        return True
+
+    def update_record(self, title=None, subtitle=None, date=None, topic=None):
+        if not self.validate_entries(title, subtitle, date, topic):
+            return False
+        values = []
+        cols = []
+        k = 0
+        if title:
+            values.append(title)
+            cols.append("title")
+            sf.append("'{" + k + "}'")
+            k += 1
+        if subtitle:
+            values.append(subtitle)
+            cols.append("subtitle")
+            sf.append("'{" + k + "}'")
+            k += 1
+        if date:
+            values.append(date)
+            cols.append("date")
+            sf.append("'{" + k + "}'")
+            k += 1
+        if topic:
+            values.append(topic)
+            cols.append("topic")
+            sf.append("'{" + k + "}'")
+            k += 1
+
+        sql_query = "INSERT INTO articles " + sf.format(*cols) + \
+            " VALUES " + sf.format(*values)
+        print sql_query
+
     def get_xml_dom(self):
         impl = getDOMImplementation()
         dom = impl.createDocument(None, "div", None)
@@ -149,6 +183,7 @@ class iapArticle:
         br_element = dom.createElement("br")
 
         id_span = dom.createElement("span")
+        id_span.attributes["id"] = "resource_id"
         id_span.attributes["style"] = \
             "position: absolute;" + \
             "visibility: hidden;"
@@ -156,16 +191,17 @@ class iapArticle:
         id_span.appendChild(txt)
         root.appendChild(id_span)
 
-
         article_id_span = dom.createElement("span")
+        article_id_span.attributes["id"] = "article_id"
         article_id_span.attributes["style"] = \
             "position: absolute;" + \
             "visibility: hidden;"
         txt = dom.createTextNode(self.article_id)
         article_id_span.appendChild(txt)
-        root.appendChild(id_span)
+        root.appendChild(article_id_span)
 
         date_span = dom.createElement("span")
+        date_span.attributes["id"] = "date"
         date_span.attributes["style"] = \
             "position: absolute;" + \
             "visibility: hidden;"
@@ -174,6 +210,7 @@ class iapArticle:
         root.appendChild(date_span)
 
         topic_span = dom.createElement("span")
+        topic_span.attributes["id"] = "topic"
         topic_span.attributes["style"] = \
             "font-weight: bold;"
         txt = dom.createTextNode(self.topic)
@@ -181,11 +218,13 @@ class iapArticle:
         root.appendChild(topic_span)
 
         title_span = dom.createElement("span")
+        title_span.attributes["id"] = "title"
         txt = dom.createTextNode(self.title + ": ")
         title_span.appendChild(txt)
         root.appendChild(title_span)
 
         subtitle_span = dom.createElement("span")
+        subtitle_span.attributes["id"] = "subtitle"
         txt = dom.createTextNode(self.subtitle)
         subtitle_span.appendChild(txt)
         root.appendChild(subtitle_span)

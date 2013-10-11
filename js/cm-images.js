@@ -1,28 +1,3 @@
-function get_file_extension(file_name) {
-    foo = file_name.split('.');
-    var l = foo.length;
-    if (l > 1)
-	return foo[l-1];
-    else
-	return "";
-}
-
-function update_tr_state(trObj, state)
-{
-    if (state)
-	trObj.attr("class", "bgdisabled");
-    else
-	trObj.attr("class", "bgenabled");
-}
-
-function update_button_state(buttonObj, state)
-{
-    if (state)
-	buttonObj.removeAttr("disabled");
-    else
-	buttonObj.attr("disabled", "");
-}
-
 function clear_form()
 {
     $("#inputFile").val('');
@@ -69,13 +44,6 @@ function allowDrop(ev)
     ev.preventDefault();
 }
 
-function extractIdFromResourceFileName(filename)
-{
-    // Extract the 40 character resource id from the filename.
-    var foo = filename.match(/\/resources\/([0-9a-f]{40})\./);
-    return foo[1];
-}
-
 function drag(ev)
 {
     ev.dataTransfer.setData("Text", extractIdFromResourceFileName(ev.target.src));
@@ -94,10 +62,6 @@ function drop(ev)
 	});
     //ev.target.appendChild(document.getElementById(ev.dataTransfer.getData("Text")));
 }
-
-// Loads an image into the image editor, i.e., after drag and drop.
-function loadEditImageAjax()
-{ }
 
 // Sets the appropriate edit field.
 function setEditField(key, val)

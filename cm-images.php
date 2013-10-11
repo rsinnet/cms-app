@@ -58,6 +58,7 @@
 	      <!-- Content -->
 	      
 	      <article class="is-page-content">
+		<script type="text/javascript" src="js/cm-resources.js"></script>
 		<script src="js/cm-images.js"></script>
 
 		<section>

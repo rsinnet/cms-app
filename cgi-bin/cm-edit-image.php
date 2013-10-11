@@ -6,7 +6,7 @@
     <tr id="edit_imagetr">
       <td class="mvalign cmtdforms"
 	  style="text-align: center;"
-	  colspan="2"/>
+	  colspan="2">
 	No image selected. Drag image here to edit.
       </td>
     </tr>

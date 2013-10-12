@@ -119,42 +119,45 @@ class iapArticle:
     def __init__(self, cursor, id=None, debug=None):
         self.cursor = cursor
         self.debug = debug
-        self.id = id           # resource id
-
-        self.article_id = ""
-        self.keys = []
-        self.values = []
+        self.id = id
         self.title = ""
         self.subtitle = ""
         self.date = ":"
         self.topic = ""
-        if not id is None:
+        if id:
             self.load_article()
 
     def load_article(self):
         # Fetch the article metadata
-        sql_query = "SELECT r1.id AS resource_id, a1.id AS article_id, " + \
-            "a1.title AS title, a1.subtitle AS subtitle, a1.date as date, " + \
-            "t1.name AS topic " + \
-            "FROM resources AS r1 " + \
-            "INNER JOIN articles_resources_graph AS arg1 ON r1.id=arg1.resource_id " + \
-            "INNER JOIN articles AS a1 ON arg1.article_id=a1.id " + \
+        sql_query = "SELECT a1.title AS title, a1.subtitle AS subtitle, " + \
+            "a1.date as date, t1.name AS topic " + \
+            "FROM articles AS a1 " + \
             "INNER JOIN topics AS t1 ON a1.topic_id=t1.id " + \
-            "WHERE r1.id='" + str(self.id) + "'"
+            "WHERE a1.id='" + str(self.id) + "'"
         if self.debug:
             print sql_query + "<br/><br/>"
 
         self.cursor.execute(sql_query)
         if self.cursor.rowcount == 1:
             row = self.cursor.fetchone()
-            self.article_id = row[1]
-            self.title = row[2]
-            self.subtitle = row[3]
-            self.date = row[4]
-            self.topic = row[5]       
+            self.title = row[0]
+            self.subtitle = row[1]
+            self.date = row[2]
+            self.topic = row[3]       
         else:
             return False
         return True
+
+    def get_resource(self):
+        sql_query = "SELECT r1.id FROM resources AS r1 " + \
+            "INNER JOIN articles_resources_graph AS arg1 ON r1.id=arg1.resource_id " + \
+            "INNER JOIN articles AS a1 ON arg1.article_id=a1.id " + \
+            "WHERE a1.id='" + self.id + "'"
+        if self.debug:
+            print sql_query + "<br/><br/>"
+        cursor.execute(sql_query)
+        row = cursor.fetchone()
+        return Resource(cursor, id=row[0], debug=self.debug)
 
     def validate_entries(self, title=None, subtitle=None, date=None, topic=None):
         return True
@@ -179,7 +182,7 @@ class iapArticle:
             values.append("topic_id=(SELECT id FROM topics WHERE name='" + topic + "')")
 
         sql_query = "UPDATE articles SET " + open_list(values) + \
-            " WHERE article_id='" + self.article_id + "'"
+            " WHERE id='" + self.article_id + "'"
         if self.debug:
             print sql_query + "<br/><br/>"
         self.cursor.execute(sql_query)
@@ -200,15 +203,19 @@ class iapArticle:
             values.append("'" + self.id + "'")
             cols.append("id")
         if title:
+            self.title = title
             values.append("'" + title + "'")
             cols.append("title")
         if subtitle:
+            self.subtitle = subtitle
             values.append("'" + subtitle + "'")
             cols.append("subtitle")
         if date:
+            self.date = date
             values.append("'" + date.isoformat() + "'")
             cols.append("date")
         if topic:
+            self.topic = topics
             values.append("(SELECT id FROM topics WHERE name='" + topic + "')")
             cols.append("topic_id")
 
@@ -218,15 +225,15 @@ class iapArticle:
             print sql_query + "<br/><br/>"
         self.cursor.execute(sql_query)
 
-    def link_to_resource(self):
+    def link_to_resource(self, resource):
 
-        if not self.article_id or not self.id:
+        if not self.id:
             return
         article_resource_link_id = get_random_hash(self.cursor)
         sql_query = "INSERT INTO articles_resources_graph " + \
             "(id, article_id, resource_id) " + \
             "VALUES ('" + article_resource_link_id + "', '" + \
-            self.article_id + "', '" + self.id + "')"
+            self.id + "', '" + resource.id + "')"
         if self.debug:
             print sql_query + "<br/><hr/>"
         self.cursor.execute(sql_query)
@@ -244,21 +251,12 @@ class iapArticle:
 
         br_element = dom.createElement("br")
 
-        id_span = dom.createElement("span")
-        id_span.attributes["id"] = "resource_id"
-        id_span.attributes["style"] = \
-            "position: absolute;" + \
-            "visibility: hidden;"
-        txt = dom.createTextNode(self.id)
-        id_span.appendChild(txt)
-        root.appendChild(id_span)
-
         article_id_span = dom.createElement("span")
         article_id_span.attributes["id"] = "article_id"
         article_id_span.attributes["style"] = \
             "position: absolute;" + \
             "visibility: hidden;"
-        txt = dom.createTextNode(self.article_id)
+        txt = dom.createTextNode(self.id)
         article_id_span.appendChild(txt)
         root.appendChild(article_id_span)
 

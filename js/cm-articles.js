@@ -32,9 +32,9 @@ $(document).ready(function() {
     $('#edit_droppable').droppable({
 	drop : function(event, ui) {
 	    $(ui.draggable).data('dropped', true);
-	    var resource_id = $(ui.draggable).children('#resource_id').text();
+	    var resource_id = $(ui.draggable).children('#article_id').text();
 	    var request = $.getJSON("cm_get_article_metadata.py",
-				    {"resource_id": resource_id})
+				    {"id": resource_id})
 		.done(function(data) {
 		    $.each(data, function(key, val) {
 			setEditField(key, val);

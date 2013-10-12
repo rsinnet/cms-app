@@ -53,7 +53,7 @@ function drop(ev)
 {
     ev.preventDefault();
     id = ev.dataTransfer.getData("Text");
-    var request = $.getJSON("cgi-bin/cm_get_image_metadata.py",
+    var request = $.getJSON("cm_get_image_metadata.py",
 			    {"id": id})
 	.done(function(data) {
 	    $.each(data, function(key, val) {

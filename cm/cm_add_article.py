@@ -15,7 +15,7 @@ cursor = db.cursor()
 print "Content-type: text/html"
 print
 
-redirect_to("../cm-articles.php")
+redirect_to("cm-articles.php")
 
 # Add the article to the resources table.
 resource_article = Resource(cursor, debug=True);

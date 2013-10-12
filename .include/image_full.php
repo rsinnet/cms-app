@@ -43,7 +43,7 @@
     echo "<span class='image-attribution'>";
   echo "<span>Attribution: </span>";
   echo "<span style='font-style: italic;'>";
-
+  
   echo $attributions[$foo_image_id - 1];
   if (isset($IAP_DEBUG_))
     {

@@ -1,4 +1,4 @@
-<form method="POST" action="cgi-bin/cm_add_article.py" enctype="multipart/form-data">
+<form method="POST" action="cm_add_article.py" enctype="multipart/form-data">
   <table id="addarticle_table" style="border-radius: 8px;" class="bgdisabled">
     <tr><td>&nbsp;</td></tr>
     <tr id="filetr" class="bgdisabled">

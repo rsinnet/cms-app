@@ -1,5 +1,5 @@
 <div id="edit_droppable">
-  <form name="editform" method="POST" action="cgi-bin/cm_set_article_metadata.py" enctype="multipart/form-data">
+  <form name="editform" method="POST" action="cm_set_article_metadata.py" enctype="multipart/form-data">
     <table style="background-color: #E6E1C5; border-radius: 8px;">
       <tr><td>&nbsp;</td></tr>
       <tr id="edit_imagetr">

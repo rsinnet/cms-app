@@ -1,5 +1,5 @@
 <?php
-  include '.include/utilities.php';
+  include '../.include/utilities.php';
   
   $dbuser = 'rsinnet_webuser';
   $dbpass = 'Z?Z07uwL#(4g';
@@ -64,7 +64,7 @@
     <!-- Nav -->
     <nav id="nav" class="skel-panels-fixed">
       <ul>
-	<li><a href="index.php">Main</a></li>
+	<li><a href="../index.php">Main</a></li>
 	<li class="current_page_item"><a href="cm-articles.php">Articles</a><li>
 	<li><a href="cm-images.php">Images</a></li>
 	<li><a href="#">Metadata</a></li>
@@ -82,19 +82,19 @@
 	      <!-- Content -->
 	      
 	      <article class="is-page-content">
-		<script type="text/javascript" src="js/cm-resources.js"></script>
-		<script type="text/javascript" src="js/cm-articles.js"></script>
+		<script type="text/javascript" src="../js/cm-resources.js"></script>
+		<script type="text/javascript" src="../js/cm-articles.js"></script>
 
 		<section>
 		  <h3>Browse Articles</h3>
-		  <?php system('cgi-bin/cm_article_list.py') ?>
+		  <?php system('./cm_article_list.py') ?>
 
 		  <h3>Edit Article</h3>
-		  <?php include 'cgi-bin/cm-edit-article.php'; ?>
+		  <?php include 'cm-edit-article.php'; ?>
 
 		  <h3>Add Article</h3>
-		  <div><a href=".incline/article_template.php">Download template</a></div>
-		  <?php include 'cgi-bin/cm-add-article.php'; ?>
+		  <div><a href="../.include/article_php.tmpl">Download template</a></div>
+		  <?php include 'cm-add-article.php'; ?>
 	      </article>
 	      
 	      <!-- /Content -->

@@ -1,4 +1,4 @@
-<form name="editform" method="POST" action="cgi-bin/cm_update_image_metadata.py" enctype="multipart/form-data">
+<form name="editform" method="POST" action="cm_update_image_metadata.py" enctype="multipart/form-data">
   <table style="background-color: #E6E1C5; border-radius: 8px;"
 	 ondrop="drop(event)"
 	 ondragover="allowDrop(event)">

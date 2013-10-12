@@ -63,13 +63,13 @@
 
 		<section>
 		  <h3>Browse Images</h3>
-		  <?php system('cgi-bin/cm_image_list.py') ?>
+		  <?php system('./cm_image_list.py') ?>
 
 		  <h3>Edit Image</h3>
-		  <?php include 'cgi-bin/cm-edit-image.php'; ?>
+		  <?php include 'cm-edit-image.php'; ?>
 
 		  <h3>Add Image</h3>
-		  <?php include 'cgi-bin/cm-add-image.php'; ?>
+		  <?php include 'cm-add-image.php'; ?>
 	      </article>
 	      
 	      <!-- /Content -->

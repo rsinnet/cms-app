@@ -33,7 +33,7 @@ $(document).ready(function() {
 	drop : function(event, ui) {
 	    $(ui.draggable).data('dropped', true);
 	    var resource_id = $(ui.draggable).children('#resource_id').text();
-	    var request = $.getJSON("cgi-bin/cm_get_article_metadata.py",
+	    var request = $.getJSON("cm_get_article_metadata.py",
 				    {"resource_id": resource_id})
 		.done(function(data) {
 		    $.each(data, function(key, val) {

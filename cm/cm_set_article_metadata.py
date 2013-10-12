@@ -15,7 +15,7 @@ form = cgi.FieldStorage()
 print "Content-Type: text/html"
 print
 
-redirect_to("../cm-articles.php")
+redirect_to("cm-articles.php")
 
 this_article = iapArticle(cursor, form.getvalue('resource_id'), debug=True)
 this_article.update_record(title=form.getvalue('title'),

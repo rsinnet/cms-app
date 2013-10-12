@@ -1,8 +1,8 @@
 <?php
   include '../.include/utilities.php';
   
-  $dbuser = 'rsinnet_webuser';
-  $dbpass = 'Z?Z07uwL#(4g';
+  $dbuser = 'rsinnet_cmuser';
+  $dbpass = 't[6AF!p_X2k4';
   
   $con = mysqli_connect("localhost", $dbuser, $dbpass, "rsinnet_iamphilosopher");
   if (mysqli_connect_errno())

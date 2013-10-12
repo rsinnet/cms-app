@@ -39,6 +39,10 @@ CREATE USER 'rsinnet_webuser'@'localhost' IDENTIFIED BY 'Z?Z07uwL#(4g';
 GRANT SELECT ON rsinnet_iamphilosopher.* TO 'rsinnet_webuser'@'localhost';
 FLUSH PRIVILEGES;
 
+CREATE USER 'rsinnet_cmuser'@'localhost' IDENTIFIED BY 't[6AF!p_X2k4';
+GRANT SELECT, INSERT, UPDATE, DELETE ON rsinnet_iamphilosopher.* TO 'rsinnet_cmuser'@'localhost';
+FLUSH_PRIVILEGES;
+
 
 USE rsinnet_iamphilosopher;
 

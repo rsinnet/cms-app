@@ -9,8 +9,8 @@ import re
 
 def connect_to_iap_db():
     return MySQLdb.connect(host="localhost",
-                           user="rsinnet_webuser",
-                           passwd="Z?Z07uwL#(4g",
+                           user="rsinnet_cmuser",
+                           passwd="t[6AF!p_X2k4",
                            db="rsinnet_iamphilosopher");
 
 def strip_xml_tag(xml_string):

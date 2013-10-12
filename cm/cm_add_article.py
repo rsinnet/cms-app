@@ -28,10 +28,5 @@ article.add_record(title=form.getvalue("title"),
                    topic=form.getvalue("topic"))
 article.link_to_resource();
 
-# Add a file extension resource.
-resource_extension = Resource(cursor, debug=True)
-resource_extension.add_resource("String", "Extension", form["extension"].value)
-resource_extension.link_to_parent(resource_article)
-
-#with open('../resources/' + resource_article.id + '.' + resource_extension.rvalue, 'wb') as fb:
-#    fb.write(form["file"].file.read())
+with open('../resources/' + resource_article.id + '.php', 'wb') as fb:
+    fb.write(form["file"].file.read())

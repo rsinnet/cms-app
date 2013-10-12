@@ -15,7 +15,7 @@ cursor = db.cursor()
 print "Content-type: text/html"
 print
 
-redirect_to("../cm-images.php")
+redirect_to("cm-images.php")
 
 # Add the image to the resources table.
 resource_image = Resource(cursor);

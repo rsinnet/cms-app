@@ -94,6 +94,7 @@ class Resource:
             " VALUES " + parenthesis_nostr_list(values)
         if self.debug:
             print sql_query + "<br/><hr/>"
+        self.cursor.execute(sql_query)
 
     def link_to_child(self, resource):
         self.link_resources(self, resource)
@@ -111,6 +112,7 @@ class Resource:
             resource2.id + "')"
         if self.debug:
             print sql_query + "<br/><hr/>"
+        self.cursor.execute(sql_query)
 
 # @todo Change article to use article id
 class iapArticle:
@@ -180,6 +182,7 @@ class iapArticle:
             " WHERE article_id='" + self.article_id + "'"
         if self.debug:
             print sql_query + "<br/><br/>"
+        self.cursor.execute(sql_query)
 
     def add_record(self, title=None, subtitle=None, date=None, topic=None):
         if not self.validate_entries(title, subtitle, date, topic):
@@ -213,6 +216,7 @@ class iapArticle:
             " VALUES " + parenthesis_nostr_list(values)
         if self.debug:
             print sql_query + "<br/><br/>"
+        self.cursor.execute(sql_query)
 
     def link_to_resource(self):
 
@@ -225,6 +229,7 @@ class iapArticle:
             self.article_id + "', '" + self.id + "')"
         if self.debug:
             print sql_query + "<br/><hr/>"
+        self.cursor.execute(sql_query)
 
     def get_xml_dom(self):
         impl = getDOMImplementation()

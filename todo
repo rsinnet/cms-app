@@ -79,6 +79,8 @@ CREATE TABLE IF NOT EXISTS resource_types (
 
 INSERT INTO resource_types (id, type) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), "Article"), (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), "Image"), (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), "String");
 
+INSERT INTO resource_types (id, type) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), "Attribution");
+
 CREATE TABLE IF NOT EXISTS resources (
        id CHAR(40) NOT NULL PRIMARY KEY,
        resource_type_id CHAR(40) NOT NULL,
@@ -93,15 +95,6 @@ INSERT INTO resources (id, resource_type_id, rvalue) VALUES
 INSERT INTO resources (id, resource_type_id, rvalue) VALUES
        (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), (SELECT id FROM resource_types WHERE type="Attribution"),
        'By Bernard Gagnon (Own work) [<a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> or <a href="http://creativecommons.org/licenses/by-sa/3.0">CC-BY-SA-3.0-2.5-2.0-1.0</a>], <a href="http://commons.wikimedia.org/wiki/File%3AAl-Hamidiyah_Souq_02.jpg">via  Wikimedia Commons</a>');
-
-INSERT INTO resources (id, resource_type_id) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), (SELECT rt.id FROM resource_types AS rt where rt.type='Image'));
-INSERT INTO resources (id, resource_type_id) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), (SELECT rt.id FROM resource_types AS rt where rt.type='Article'));
-
-INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (5, 3);
-INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (6, 4);
-
-INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (3, 1);
-INSERT INTO resources_graph (resource1_id, resource2_id) VALUES (4, 2);
 
 CREATE TABLE IF NOT EXISTS resources_graph (
        id CHAR(40) NOT NULL PRIMARY KEY,
@@ -136,10 +129,6 @@ INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(CONCAT(R
 INSERT INTO articles (id, title, subtitle, date, topic_id) VALUES (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())), 'Rights vs. Priviliges', 'A Reasoned Explanation', NOW(), (SELECT id FROM topics WHERE name = 'Law'));
 
 
-INSERT INTO resources (resource_type_id) VALUES ((SELECT id FROM resource_types WHERE type="Image"))
-INSERT INTO resources (resource_type_id) VALUES ((SELECT id FROM resource_types WHERE type="Article"))
-
-
 INSERT INTO resources (resource_type_id) VALUES
        ((SELECT id from resource_types WHERE type="Image"))
 
@@ -156,8 +145,8 @@ INSERT INTO resources (id, resource_type_id, rkey, rvalue) VALUES
 # jpg key
 INSERT INTO resources_graph (id, resource1_id, resource2_id) VALUES
        (SHA1(CONCAT(RAND(), RAND(), RAND(), RAND())),
-	'4519f966fe17ab0a4912eac23517c0d5b9cb2467',
-        '590da4f30aab220e68c11f5820f369c6e50f2f40')
+       '4519f966fe17ab0a4912eac23517c0d5b9cb2467',
+       '590da4f30aab220e68c11f5820f369c6e50f2f40')
 
 # Adding new images to the resources table
 INSERT INTO resources (resource_type_id, rvalue) VALUES ((SELECT rt.id FROM resource_types AS rt WHERE rt.type="Image"), sha2(rand(), 256))

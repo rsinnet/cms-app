@@ -226,7 +226,6 @@ class iapArticle:
         self.cursor.execute(sql_query)
 
     def link_to_resource(self, resource):
-
         if not self.id:
             return
         article_resource_link_id = get_random_hash(self.cursor)

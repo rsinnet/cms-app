@@ -26,7 +26,8 @@ article = iapArticle(cursor, debug=True)
 article.add_record(title=form.getvalue("title"),
                    subtitle=form.getvalue("subtitle"),
                    topic=form.getvalue("topic"))
-article.link_to_resource();
+
+article.link_to_resource(resource_article);
 
 with open('../resources/' + resource_article.id + '.php', 'wb') as fb:
     fb.write(form["file"].file.read())

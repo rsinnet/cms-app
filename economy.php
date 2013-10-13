@@ -6,8 +6,7 @@
    $dbpass = 'Z?Z07uwL#(4g';
 
    $con = mysqli_connect("localhost", $dbuser, $dbpass, "rsinnet_iamphilosopher");
-   if (mysqli_connect_errno())
-   {
+   if (mysqli_connect_errno()) {
    echo "Failed to connect: " . mysqli_connect_error();
    //redirect to error page.
    }

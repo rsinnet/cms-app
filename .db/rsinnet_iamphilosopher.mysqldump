@@ -14,3 +14,259 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `articles`
+--
+
+DROP TABLE IF EXISTS `articles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `articles` (
+  `id` char(40) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `title` varchar(2000) NOT NULL,
+  `subtitle` varchar(2000) DEFAULT NULL,
+  `date` datetime NOT NULL,
+  `topic_id` char(40) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `topic_id` (`topic_id`),
+  CONSTRAINT `articles_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articles`
+--
+
+LOCK TABLES `articles` WRITE;
+/*!40000 ALTER TABLE `articles` DISABLE KEYS */;
+INSERT INTO `articles` VALUES ('3dd19be22ffffb3f616e777d4ff017f62c37097e','0000-00-00 00:00:00','The Syria Situation','Suspicions and Allegations','2013-08-29 21:00:00','cb5addbe5bf558e8a6877c1d101aaa2da21c7b30'),('d7db629585f68cff103419b93fa0743065f8f11a','0000-00-00 00:00:00','The Case for Bitcoin','A Cryptocurrency Revolution','2013-10-06 15:09:54','0f9c9f7c50976643e1f86931b8ff029aeb49af72');
+/*!40000 ALTER TABLE `articles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `articles_authors_graph`
+--
+
+DROP TABLE IF EXISTS `articles_authors_graph`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `articles_authors_graph` (
+  `id` char(40) NOT NULL,
+  `article_id` char(40) NOT NULL,
+  `author_id` char(40) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`),
+  KEY `author_id` (`author_id`),
+  CONSTRAINT `articles_authors_graph_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`),
+  CONSTRAINT `articles_authors_graph_ibfk_2` FOREIGN KEY (`author_id`) REFERENCES `authors` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articles_authors_graph`
+--
+
+LOCK TABLES `articles_authors_graph` WRITE;
+/*!40000 ALTER TABLE `articles_authors_graph` DISABLE KEYS */;
+/*!40000 ALTER TABLE `articles_authors_graph` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `articles_resources_graph`
+--
+
+DROP TABLE IF EXISTS `articles_resources_graph`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `articles_resources_graph` (
+  `id` char(40) NOT NULL,
+  `article_id` char(40) NOT NULL,
+  `resource_id` char(40) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`),
+  KEY `resource_id` (`resource_id`),
+  CONSTRAINT `articles_resources_graph_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`),
+  CONSTRAINT `articles_resources_graph_ibfk_2` FOREIGN KEY (`resource_id`) REFERENCES `resources` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articles_resources_graph`
+--
+
+LOCK TABLES `articles_resources_graph` WRITE;
+/*!40000 ALTER TABLE `articles_resources_graph` DISABLE KEYS */;
+INSERT INTO `articles_resources_graph` VALUES ('53daeca58443ec66a374e7cbe8e88dc2a334ea11','3dd19be22ffffb3f616e777d4ff017f62c37097e','4b00d6654520e7d69a0174b2f5245b427b780380'),('ba7ce6a923eeef6bd7d44e8fb6464b08ba63c924','d7db629585f68cff103419b93fa0743065f8f11a','5189bd66d1d6a14c610673877efb4e119350b730');
+/*!40000 ALTER TABLE `articles_resources_graph` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `articles_topics_graph`
+--
+
+DROP TABLE IF EXISTS `articles_topics_graph`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `articles_topics_graph` (
+  `id` char(40) NOT NULL,
+  `article_id` char(40) NOT NULL,
+  `topic_id` char(40) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `article_id` (`article_id`),
+  KEY `topic_id` (`topic_id`),
+  CONSTRAINT `articles_topics_graph_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `articles` (`id`),
+  CONSTRAINT `articles_topics_graph_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `articles_topics_graph`
+--
+
+LOCK TABLES `articles_topics_graph` WRITE;
+/*!40000 ALTER TABLE `articles_topics_graph` DISABLE KEYS */;
+/*!40000 ALTER TABLE `articles_topics_graph` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `authors`
+--
+
+DROP TABLE IF EXISTS `authors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `authors` (
+  `id` char(40) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `authors`
+--
+
+LOCK TABLES `authors` WRITE;
+/*!40000 ALTER TABLE `authors` DISABLE KEYS */;
+INSERT INTO `authors` VALUES ('525bf8b051fbd696d62bfdb3b6f9d49b0f0c4b59','Ryan W. Sinnet','ryan@iamphilosopher.com');
+/*!40000 ALTER TABLE `authors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `resource_types`
+--
+
+DROP TABLE IF EXISTS `resource_types`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resource_types` (
+  `id` char(40) NOT NULL,
+  `type` varchar(2000) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resource_types`
+--
+
+LOCK TABLES `resource_types` WRITE;
+/*!40000 ALTER TABLE `resource_types` DISABLE KEYS */;
+INSERT INTO `resource_types` VALUES ('4ab0b003a7277d83c9a2f5021d15238f7957bf10','Attribution'),('8116ba17ceed746c8aed52564328077fd2ea74bc','String'),('8f8a82ef54f522ab29a8cf1835bcae23e352391c','Article'),('9cc590e2ea2f40d30d538e2f6e16033beb613a80','Image');
+/*!40000 ALTER TABLE `resource_types` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `resources`
+--
+
+DROP TABLE IF EXISTS `resources`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resources` (
+  `id` char(40) NOT NULL,
+  `resource_type_id` char(40) NOT NULL,
+  `rkey` varchar(2000) DEFAULT NULL,
+  `rvalue` varchar(2000) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `resource_type_id` (`resource_type_id`),
+  CONSTRAINT `resources_ibfk_1` FOREIGN KEY (`resource_type_id`) REFERENCES `resource_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resources`
+--
+
+LOCK TABLES `resources` WRITE;
+/*!40000 ALTER TABLE `resources` DISABLE KEYS */;
+INSERT INTO `resources` VALUES ('17c0b95e4fdc9162a9b879360c2fb25531a25c5c','4ab0b003a7277d83c9a2f5021d15238f7957bf10',NULL,'By Bernard Gagnon (Own work) [<a href=\"http://www.gnu.org/copyleft/fdl.html\">GFDL</a> or <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC-BY-SA-3.0-2.5-2.0-1.0</a>], <a href=\"http://commons.wikimedia.org/wiki/File%3AAl-Hamidiyah_Souq_02.jpg\">via  Wikimedia Commons</a>'),('2ac7a07058bc720d8a904bb1f36bc3aad19f4bf0','4ab0b003a7277d83c9a2f5021d15238f7957bf10',NULL,'By CASASCIUS (CASASCIUS) [<a href=\'http://creativecommons.org/licenses/by/3.0\'>CC-BY-3.0</a>], via <a href=\'http://commons.wikimedia.org\'>Wikimedia Commons</a>'),('4519f966fe17ab0a4912eac23517c0d5b9cb2467','9cc590e2ea2f40d30d538e2f6e16033beb613a80',NULL,NULL),('4b00d6654520e7d69a0174b2f5245b427b780380','8f8a82ef54f522ab29a8cf1835bcae23e352391c',NULL,NULL),('5189bd66d1d6a14c610673877efb4e119350b730','8f8a82ef54f522ab29a8cf1835bcae23e352391c',NULL,NULL),('590da4f30aab220e68c11f5820f369c6e50f2f40','8116ba17ceed746c8aed52564328077fd2ea74bc','Extension','jpg');
+/*!40000 ALTER TABLE `resources` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `resources_graph`
+--
+
+DROP TABLE IF EXISTS `resources_graph`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `resources_graph` (
+  `id` char(40) NOT NULL,
+  `resource1_id` char(40) NOT NULL,
+  `resource2_id` char(40) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `resource1_id` (`resource1_id`),
+  KEY `resource2_id` (`resource2_id`),
+  CONSTRAINT `resources_graph_ibfk_1` FOREIGN KEY (`resource1_id`) REFERENCES `resources` (`id`),
+  CONSTRAINT `resources_graph_ibfk_2` FOREIGN KEY (`resource2_id`) REFERENCES `resources` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resources_graph`
+--
+
+LOCK TABLES `resources_graph` WRITE;
+/*!40000 ALTER TABLE `resources_graph` DISABLE KEYS */;
+INSERT INTO `resources_graph` VALUES ('163f9cfad24afa4cc18920c4063e94693a73a20f','4519f966fe17ab0a4912eac23517c0d5b9cb2467','17c0b95e4fdc9162a9b879360c2fb25531a25c5c'),('4313409a91f447bcc9457e55b9920228c148c3ac','4519f966fe17ab0a4912eac23517c0d5b9cb2467','590da4f30aab220e68c11f5820f369c6e50f2f40'),('dc85ae47406e4cf3584a63cf3c414daef7b6fc30','4b00d6654520e7d69a0174b2f5245b427b780380','4519f966fe17ab0a4912eac23517c0d5b9cb2467');
+/*!40000 ALTER TABLE `resources_graph` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `topics`
+--
+
+DROP TABLE IF EXISTS `topics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `topics` (
+  `id` char(40) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `topics`
+--
+
+LOCK TABLES `topics` WRITE;
+/*!40000 ALTER TABLE `topics` DISABLE KEYS */;
+INSERT INTO `topics` VALUES ('0f192a8d655a6290d17eb4edfdd7ecd9a6c24e3c','Science'),('0f9c9f7c50976643e1f86931b8ff029aeb49af72','Economy'),('89eeba98ec6560ce2cc655e697889c4956795341','Philosophy'),('9ff8d1a5692d53625819fd6ec28220a38c6026c1','Law'),('cb5addbe5bf558e8a6877c1d101aaa2da21c7b30','Politics');
+/*!40000 ALTER TABLE `topics` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2013-10-12 20:11:00

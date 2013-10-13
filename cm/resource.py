@@ -159,11 +159,11 @@ class iapArticle:
         row = cursor.fetchone()
         return Resource(cursor, id=row[0], debug=self.debug)
 
-    def validate_entries(self, title=None, subtitle=None, date=None, topic=None):
+    def validate_entries(self, title=None, subtitle=None, topic=None, date=None):
         return True
 
-    def update_record(self, title=None, subtitle=None, date=None, topic=None):
-        if not self.validate_entries(title, subtitle, date, topic):
+    def update_record(self, title=None, subtitle=None, topic=None, date=None):
+        if not self.validate_entries(title, subtitle, topic, date=date):
             return False
 
         self.title = title
@@ -187,8 +187,8 @@ class iapArticle:
             print sql_query + "<br/><br/>"
         self.cursor.execute(sql_query)
 
-    def add_record(self, title=None, subtitle=None, date=None, topic=None):
-        if not self.validate_entries(title, subtitle, date, topic):
+    def add_record(self, title=None, subtitle=None, topic=None):
+        if not self.validate_entries(title, subtitle, topic):
             return False
 
         if self.debug:
@@ -210,14 +210,13 @@ class iapArticle:
             self.subtitle = subtitle
             values.append("'" + subtitle + "'")
             cols.append("subtitle")
-        if date:
-            self.date = date
-            values.append("'" + date.isoformat() + "'")
-            cols.append("date")
         if topic:
-            self.topic = topics
+            self.topic = topic 
             values.append("(SELECT id FROM topics WHERE name='" + topic + "')")
             cols.append("topic_id")
+
+        values.append("NOW()")
+        cols.append("date")
 
         sql_query = "INSERT INTO articles " + parenthesis_nostr_list(cols) + \
             " VALUES " + parenthesis_nostr_list(values)

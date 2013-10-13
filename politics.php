@@ -109,7 +109,7 @@ include '.include/recent_articles.php';
 		    $foo_article_title = $recent_article_titles[$i];
 		    $foo_article_subtitle = $recent_article_subtitles[$i];
 		    $foo_article_age = $recent_article_ages[$i];
-		    $foo_article_blog_file = '.articles/'.$recent_article_ids[$i].'.php';
+		    $foo_article_blog_file = 'resources/'.$recent_article_ids[$i].'.php';
 		    include('.include/article_brief.php');
 		  }
 	      ?>

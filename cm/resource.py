@@ -182,7 +182,7 @@ class iapArticle:
             values.append("topic_id=(SELECT id FROM topics WHERE name='" + topic + "')")
 
         sql_query = "UPDATE articles SET " + open_list(values) + \
-            " WHERE id='" + self.article_id + "'"
+            " WHERE id='" + self.id + "'"
         if self.debug:
             print sql_query + "<br/><br/>"
         self.cursor.execute(sql_query)

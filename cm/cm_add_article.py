@@ -31,7 +31,7 @@ resource_article.add_resource("Article")
 
 article.link_to_resource(resource_article);
 
-with open('../resources/' + resource_article.id + '.php', 'wb') as fb:
+with open('../resources/' + article.id + '.php', 'wb') as fb:
     fb.write(form["file"].file.read())
 
 db.commit()

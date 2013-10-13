@@ -39,7 +39,6 @@
       </tr>
       <tr><td>&nbsp;</td></tr>
     </table>
-    <input id="edit_resource_id" name="resource_id" type="hidden"/>
     <input id="edit_article_id" name="article_id" type="hidden"/>
   </form>
 </div>

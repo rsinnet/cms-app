@@ -24,7 +24,7 @@
   $result->close();
   
   $article_id = $_GET['id'];
-  $article_blog_file = ".articles/" . $article_id . ".php";
+  $article_blog_file = "resources/" . $article_id . ".php";
 
   $sql_query = "SELECT title, subtitle, date, topic_id,
   (SELECT name FROM topics WHERE id='topic_id') AS topic,

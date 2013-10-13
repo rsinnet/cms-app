@@ -4,17 +4,17 @@
 
    $con = mysqli_connect("localhost", $dbuser, $dbpass, "rsinnet_iamphilosopher");
    if (mysqli_connect_errno())
-   {
-   echo "Failed to connect: " . mysqli_connect_error();
-   //redirect to error page.
-   }
+     {
+       echo "Failed to connect: " . mysqli_connect_error();
+       //redirect to error page.
+     }
 
-   $result = $con->query("SELECT name FROM topics ORDER BY id ASC");
-while ($row = $result->fetch_array())
-{
-$topics_list[] = $row['name'];
-}
-$result->close();
+  $result = $con->query("SELECT name FROM topics ORDER BY id ASC");
+  while ($row = $result->fetch_array())
+    {
+      $topics_list[] = $row['name'];
+    }
+  $result->close();
 ?>
 <!DOCTYPE HTML>
 <!--

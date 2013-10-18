@@ -31,9 +31,22 @@
 
     A fairly new paradigm effected by the Internet modifies the standard model by shifting the cost entirely away from the reader and fully onto the writer.
 
-    However, the cost is often substantial and many researches like me have avoided this model in favor of the standard model where our publication costs are lower.
+    However, the cost is often substantial and these newer journals are less established and thus many researches like me have avoided this model in favor of the standard model where our publication costs are lower.
 
-    An unfortunate side effect being that the readership is then restricted as only subscribers or purchasers are permitted to peruse publications whereas the open access model grants general access over the Internet.
-   
+    An unfortunate side effect being that readership is then restricted as only subscribers or purchasers are permitted to peruse publications whereas the open access model grants general access over the Internet.
+
+    This particularly heinous facet is emblematic of the failures of mankind's contemporary knowledge distribution infrastructure as a whole.
+  </p>
+
+  <p>
+    The wealth of human knowledge is now so expansive that a curious being might pose and answer many questions which arouse his interests by simply reading through the literature on the relevant topics.
+
+    And yet general access is still wanting and the thoughtful among us still hunger for knowledge even as we hunger for food in a global society suffering not only from rampant inflation and but also from a lack of knowledge.
+
+    O' that the wisdom of ages were not a secret so closely guarded, tucked away for safekeeping to the detriment of all free men, for the quest for knowledge must surely unite all men and women in the bonds of brotherhood.
+
+    And if the people but knew of the ploys of their leaders, they would readily put an end to the intransigent belicosity that seems so prevasive throughout the story of human history and we might finally enjoy peace.
+
+    In an interview, Julian Assange noted: <q>&#8220;Basically, populations don't like wars, and populations have to be fooled into wars; populations don't willingly, with open eyes, go into a war.&#8221;</q>
   </p>
 </section>

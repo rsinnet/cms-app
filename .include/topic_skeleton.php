@@ -68,30 +68,6 @@
 	      </section>
 	      <!-- /Recent Posts -->
 
-	      <!-- Something -->
-	      <section>
-		<h2 class="major"><span>Ipsum Dolore</span></h2>
-		<a href="#" class="image image-full"><img src="images/pic03.jpg" alt="" /></a>
-		<p>
-		  Donec sagittis massa et leo semper scele risque metus faucibus. Morbi congue mattis mi. 
-		  Phasellus sed nisl vitae risus tristique volutpat. Cras rutrum sed commodo luctus blandit.
-		</p>
-		<a href="#" class="button button-alt">Learn more</a>
-	      </section>
-	      <!-- /something -->
-
-	      <!-- Something -->
-	      <section>
-		<h2 class="major"><span>Magna Feugiat</span></h2>
-		<p>
-		  Rhoncus dui quis euismod. Maecenas lorem tellus, congue et condimentum ac, ullamcorper non sapien. 
-		  Donec sagittis massa et leo semper scele risque metus faucibus. Morbi congue mattis mi. 
-		  Phasellus sed nisl vitae risus tristique volutpat. Cras rutrum sed commodo luctus blandit.
-		</p>
-		<a href="#" class="button button-alt">Learn more</a>
-	      </section>
-	      <!-- /something -->
-
 	      <!-- /Sidebar -->
 	      
 	    </div>

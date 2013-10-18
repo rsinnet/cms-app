@@ -10,7 +10,7 @@ class Resource:
         self.rvalue = None
         self.rkey = None
         self.rtype = None
-        if not id is None:
+        if id:
             self.load_resource()
 
     def load_resource(self):
@@ -58,14 +58,16 @@ class Resource:
         if rvalue:
             self.rvalue = rvalue
 
-        if self.id:
-            return False
-
         if not self.rvalue and (self.rtype == "Attribution" or \
                                     self.rkey == "Title" or \
                                     self.rkey == "Extension" or \
                                     self.rkey == "Location" or \
                                     self.rkey == "Description"):
+            return False
+
+        self.check_resource()
+
+        if self.id:
             return False
 
         if self.debug:
@@ -211,7 +213,7 @@ class iapArticle:
             values.append("'" + subtitle + "'")
             cols.append("subtitle")
         if topic:
-            self.topic = topic 
+            self.topic = topic
             values.append("(SELECT id FROM topics WHERE name='" + topic + "')")
             cols.append("topic_id")
 
@@ -297,7 +299,7 @@ class iapImage:
     def __init__(self, cursor, id):
         self.cursor = cursor
         self.id = id           # resource id
-
+        self.key_types = []
         self.keys = []
         self.values = []
         self.attribution = ""
@@ -319,9 +321,9 @@ class iapImage:
         rows = cursor.fetchall()
 
         for row in rows:
-            self.keys.append(row[2])
-            self.values.append(row[4])
+            self.key_types.append(row[2])
             self.keys.append(row[3])
+            self.values.append(row[4])
             if (row[3] == "Extension"):
                 self.extension = row[4]
             elif (row[3] == "Title"):
@@ -356,19 +358,25 @@ class iapImage:
         resource_div = dom.createElement("div")
         root.appendChild(resource_div)
 
-        key_span = dom.createElement("span")
-        key_span.attributes["style"] = "font-weight: bold;"
-        resource_div.appendChild(key_span)
+        for i in range(len(self.keys)):
+            if self.keys[i] == "Extension":
+                continue
 
-        txt = dom.createTextNode(self.keys[0])
-        key_span.appendChild(txt)
+            key_span = dom.createElement("span")
+            key_span.attributes["style"] = "font-weight: bold;"
+            resource_div.appendChild(key_span)
 
-        key_value = dom.createElement("span")
-        key_value.attributes["style"] = "font-style: italic;"
-        resource_div.appendChild(key_value)
+            if self.keys[i] is None:
+                self.keys[i] = self.key_types[i]
+            txt = dom.createTextNode(self.keys[i])
+            key_span.appendChild(txt)
 
-        txt = dom.createTextNode(self.values[0])
-        key_value.appendChild(txt)
+            key_value = dom.createElement("span")
+            key_value.attributes["style"] = "font-style: italic;"
+            resource_div.appendChild(key_value)
+
+            txt = dom.createTextNode(self.values[i])
+            key_value.appendChild(txt)
 
         return dom
 

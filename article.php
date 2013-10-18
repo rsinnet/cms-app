@@ -209,28 +209,15 @@
 	<div class="12u">
 	  
 	  <!-- Contact -->
-	  <section>
-	    <h2 class="major"><span>Get in touch</span></h2>
-	    <ul class="contact">
-	      <li><a href="#" class="facebook">Facebook</a></li>
-	      <li><a href="http://twitter.com/n33co" class="twitter">Twitter</a></li>
-	      <li><a href="http://n33.co/feed/" class="rss">RSS</a></li>
-	      <li><a href="http://dribbble.com/n33" class="dribbble">Dribbble</a></li>
-	      <li><a href="#" class="linkedin">LinkedIn</a></li>
-	      <li><a href="#" class="googleplus">Google+</a></li>
-	    </ul>
-	  </section>
+	  <?php echo file_get_contents('.include/footer_contact.html'); ?>
 	  <!-- /Contact -->
-	  
+
 	</div>
       </div>
       <div class="row">
 	
 	<!-- Copyright -->
-	<div id="copyright">
-	  &copy; 2013 Ryan W. Sinnet | Images: <a href="http://fotogrph.com">fotogrph</a> + <a href="http://iconify.it">Iconify.it</a> | Design: <a href="http://html5up.net/">HTML5 UP</a>
-	</div>
-	<!-- /Copyright -->
+	<?php echo file_get_contents('.include/copyright.html'); ?>
 	
       </div>
     </footer>

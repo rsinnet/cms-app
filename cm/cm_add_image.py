@@ -48,3 +48,5 @@ resource_attribution.link_to_parent(resource_image)
 
 with open('../resources/' + resource_image.id + '.' + resource_extension.rvalue, 'wb') as fb:
     fb.write(form["file"].file.read())
+
+db.commit()

@@ -51,7 +51,7 @@
   -->
 <html>
   <head>
-    <title><?php echo $article_topic_id; ?> - I AM PHILOSOPHER</title>
+    <title><?php echo $article_title; ?> - I AM PHILOSOPHER</title>
     <?php echo file_get_contents('.include/topic_html_head.html'); ?>
   </head>
   <body>

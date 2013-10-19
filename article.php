@@ -76,7 +76,7 @@
     <!-- /Main -->
 
     <!-- Footer -->
-    <?php include '.include/topic_footer.php'; ?>>
+    <?php include '.include/topic_footer.php'; ?>
 
   </body>
 </html>

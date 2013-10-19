@@ -22,11 +22,9 @@
 
     <!-- Header -->
     <?php include '.include/topic_header.php' ?>
-    <!-- /Header -->
 
     <!-- Nav -->
     <?php include '.include/navbar.php' ?>
-    <!-- /Nav -->
     
     <!-- Main -->
     <div id="main-wrapper">
@@ -41,15 +39,15 @@
 	      <section>
 		<h2 class="major"><span>Recent Posts</span></h2>
 		<ul class="style2">
-  <?php
-  for ($i = 0; $i < count($recent_article_ids); $i++)
-    {
-      $foo_article_id = $recent_article_ids[$i];
-      $foo_article_title = $recent_article_titles[$i];
-      $foo_article_age = $recent_article_ages[$i];
-      include '.include/sidebar_post.php';
-    }
-  ?>
+		  <?php
+    		    for ($i = 0; $i < count($recent_article_ids); $i++)
+		      {
+			$foo_article_id = $recent_article_ids[$i];
+			$foo_article_title = $recent_article_titles[$i];
+			$foo_article_age = $recent_article_ages[$i];
+			include '.include/sidebar_post.php';
+		      }
+		  ?>
 		</ul>
 		<a href="#" class="button button-alt">Browse Archives</a>
 	      </section>

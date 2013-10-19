@@ -29,7 +29,7 @@
 
     A fairly new paradigm effected by the Internet modifies the standard model by shifting the cost entirely away from the reader and fully onto the writer.
 
-    However, the cost is often substantial and these newer journals are less established and thus many researches like me have avoided this model in favor of the standard model where our publication costs are lower.
+    However, the cost is often substantial and these newer journals are less established and thus many researchers like me have avoided this model in favor of the standard model where our publication costs are lower.
 
     An unfortunate side effect being that readership is then restricted as only subscribers or purchasers are permitted to peruse publications whereas the open access model grants general access over the Internet.
 
@@ -67,6 +67,6 @@
 
     Perhaps the typical human is not well trained in logic &#0150; I dare say we can safely accept this as fact &#0150; and his mind is so fazed by emotion and self-assuredness that he cannot reject misinformation and that there is so much misinformation that it sullies his inner canvas which he uses to paint a picture of the world as he perceives it.
 
-    Perhaps, if this be true, we the logical are failing to act, failing to share our understanding with the misguided and the myopic while the wicked employ philosophers to craft fanciful frameworks to justify the absurdity of it all &#0150; this type of arrangement is called a think tank and while a think tank can be used for good, it is more often employed by the unseemly to achieve their nefarious ends.
+    Perhaps, if this be true, we the logical are failing to act, failing to share our understanding with the misguided and the myopic while the wicked employ philosophers to craft fanciful frameworks to justify the absurdity of it all &#0150; this type of arrangement is called a think tank and while a think tank can be used for good, it is more often employed by the unseemly to achieve nefarious ends.
   </p>
 </section>

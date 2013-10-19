@@ -4,25 +4,13 @@
   // Include useful scripts.
   include '.include/article_age.php';
   include '.include/utilities.php';
-  
+
   $dbuser = 'rsinnet_webuser';
   $dbpass = 'Z?Z07uwL#(4g';
-  
-  $con = mysqli_connect("localhost", $dbuser, $dbpass, "rsinnet_iamphilosopher");
-  if (mysqli_connect_errno())
-    {
-      echo "Failed to connect: " . mysqli_connect_error();
-      //redirect to error page.
-      echo "<script language=\"text/javascript\">window.location = 'errors/404.html';</script>";
-    }
-  
-  $result = $con->query("SELECT name FROM topics ORDER BY id ASC");
-  while ($row = $result->fetch_array())
-    {
-      $topics_list[] = $row['name'];
-    }
-  $result->close();
-  
+
+  $con = iap_sql_connect();
+  $topics_list = iap_get_topics($con);
+
   $article_id = $_GET['id'];
   $article_blog_file = "resources/" . $article_id . ".php";
 
@@ -56,28 +44,19 @@
   </head>
   <body>
     <!-- Header -->
-    <header id="header">
-      <div class="logo">
-	<div>
-	  <h1><a href="#" id="logo">I AM PHILOSOPHER</a></h1>
-	    <span class="byline"><?php echo $topic; ?></span>
-	</div>
-      </div>
-    </header>
-    <!-- /Header -->
-    
+    <?php include '.include/topic_header.php' ?>
+
     <!-- Nav -->
     <?php include '.include/navbar.php' ?>
-    
+
     <!-- Main -->
     <div id="main-wrapper">
       <div id="main" class="container">
 	<div class="row">
 	  <div class="12u skel-cell-mainContent">
 	    <div class="content">
-	      
+
 	      <!-- Content -->
-	      
 	      <article class="is-page-content">
 		<?php
 		  $foo_article_title = $article_title;
@@ -88,16 +67,16 @@
 		?>
 	      </article>
 	      <!-- /Content -->
-	      
+
 	    </div>
 	  </div>
 	</div>
       </div>
     </div>
     <!-- /Main -->
-    
+
     <!-- Footer -->
     <?php include '.include/topic_footer.php'; ?>>
-    
+
   </body>
 </html>

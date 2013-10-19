@@ -53,6 +53,6 @@
 
     Perhaps it is not so much individual secrets but the grander panorama which is increasingly revealed by each piece of knowledge that helps a person transcend.
 
-    Perhaps the typical human is not well trained in logic &#0150; I dare say we can safely accept this as fact &0#150; and his mind is so fazed by emotion and self-assuredness that he cannot reject misinformation and that there is so much misinformation that it sullies his inner canvas which he uses to paint a picture of the world as he perceives it.
+    Perhaps the typical human is not well trained in logic &#0150; I dare say we can safely accept this as fact &#0150; and his mind is so fazed by emotion and self-assuredness that he cannot reject misinformation and that there is so much misinformation that it sullies his inner canvas which he uses to paint a picture of the world as he perceives it.
   </p>
 </section>

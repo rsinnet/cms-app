@@ -43,16 +43,30 @@
 
     O' that the wisdom of ages were not a secret so closely guarded, tucked away for safekeeping to the detriment of all free men, for the quest for knowledge must surely unite all men and women in the bonds of brotherhood.
 
-    And if the people but knew of the ploys of their leaders, they would readily retire to the intransigent bellicosity that seems so pervasive throughout the story of human history and we might finally enjoy peace.
+    If the people but knew of the ploys of their leaders, they would readily retire the intransigent bellicosity that historically seems so characteric of the human experience and we might finally enjoy peace.
+  </p>
+  <p>
+    Let us hope that this peace comes sooner rather than later as the world is and has for decades been on the brink of nuclear war.
 
-    In an interview, Julian Assange noted: <q>&#8220;Basically, populations don't like wars, and populations have to be fooled into wars; populations don't willingly, with open eyes, go into a war.&#8221;</q>
+    But this can only be if the people are brave and stand up for what is right.
+
+    As Tolstoy muses in his <span style="font-style:italic;">War and Peace</span>, <q>&#8220;If everyone fought for their own convictions there would be no war.&#8221;</q>.
+
+    Tolstoy is indeed referring to the charade that is war and, along the same lines, John Steinbeck later points out, &#8220;All war is a symptom of man's failure as a thinking animal.&#8221;
+
+    In modern times, Julian Assange stated in an interview: <q>&#8220;Basically, populations don't like wars, and populations have to be fooled into wars; populations don't willingly, with open eyes, go into a war.&#8221;</q>
+
+    Thus this conclusion seems timeless and universal: that mankind can live in a peaceful world.
+
   </p>
 
   <p>
-    But what are these enigmatic secrets to which I have so cryptically referred which can free a man's mind from the banalities of everyday life?
+    But what are these enigmatic secrets to which I have so cryptically referred that can free a man's mind from the banalities of everyday life?
 
     Perhaps it is not so much individual secrets but the grander panorama which is increasingly revealed by each piece of knowledge that helps a person transcend.
 
     Perhaps the typical human is not well trained in logic &#0150; I dare say we can safely accept this as fact &#0150; and his mind is so fazed by emotion and self-assuredness that he cannot reject misinformation and that there is so much misinformation that it sullies his inner canvas which he uses to paint a picture of the world as he perceives it.
+
+    Perhaps, if this be true, we the logical are failing to act, failing to share our understanding with the misguided and the myopic while the wicked employ philosophers to craft fanciful frameworks to justify the absurdity of it all &#0150; this type of arrangement is called a think tank and while a think tank can be used for good, it is more often employed by the unseemly to achieve their nefarious ends.
   </p>
 </section>

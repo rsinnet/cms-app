@@ -50,20 +50,20 @@
 
     But this can only be if the people are brave and stand up for what is right.
 
-    As Tolstoy muses in his <span style="font-style:italic;">War and Peace</span>, <q>&#8220;If everyone fought for their own convictions there would be no war.&#8221;</q>.
+    As Tolstoy muses in his <span style="font-style:italic;">War and Peace</span>, <q>&#8220;If everyone fought for their own convictions there would be no war.&#8221;</q>
 
-    Tolstoy is indeed referring to the charade that is war and, along the same lines, John Steinbeck later points out, &#8220;All war is a symptom of man's failure as a thinking animal.&#8221;
+    Tolstoy is indeed referring to the charade that is war and, along the same lines, John Steinbeck later writes in his <span style="font-style:italic;">Once There Was A War</span>, &#8220;All war is a symptom of man's failure as a thinking animal.&#8221;
 
-    In modern times, Julian Assange stated in an interview: <q>&#8220;Basically, populations don't like wars, and populations have to be fooled into wars; populations don't willingly, with open eyes, go into a war.&#8221;</q>
+    In modern times, Julian Assange stated in an <a href="http://rt.com/news/wikileaks-revelations-assange-interview/" target="_blank">interview</a> with BBC News: <q>&#8220;Basically, populations don't like wars, and populations have to be fooled into wars; populations don't willingly, with open eyes, go into a war.&#8221;</q>
 
-    Thus this conclusion seems timeless and universal: that mankind can live in a peaceful world.
+    This conclusion which echoes through the &#230;ons seems timeless and universal: that mankind can live in a peaceful world.
 
   </p>
 
   <p>
     But what are these enigmatic secrets to which I have so cryptically referred that can free a man's mind from the banalities of everyday life?
 
-    Perhaps it is not so much individual secrets but the grander panorama which is increasingly revealed by each piece of knowledge that helps a person transcend.
+    Perhaps it is not so much individual secrets but the grander panorama which is increasingly revealed by each additional piece of knowledge that helps a person transcend the mundane and perceive a more accurate reality, one in which the veil no longer obscures the present collapse of the rule of law.
 
     Perhaps the typical human is not well trained in logic &#0150; I dare say we can safely accept this as fact &#0150; and his mind is so fazed by emotion and self-assuredness that he cannot reject misinformation and that there is so much misinformation that it sullies his inner canvas which he uses to paint a picture of the world as he perceives it.
 

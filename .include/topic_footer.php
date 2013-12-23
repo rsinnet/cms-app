@@ -16,6 +16,11 @@
 
 	</div>
       </div>
+
+      <div class="row">
+	<?php echo file_get_contents('.include/sitelock-badge.html'); ?>
+      </div>
+
       <div class="row">
 
 	<!-- Copyright -->
